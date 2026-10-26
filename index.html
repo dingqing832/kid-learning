@@ -236,6 +236,22 @@ textarea{min-height:110px;font-size:14px;font-family:monospace}
 .frow{display:flex;gap:10px}.frow button{flex:1;font-size:21px;font-weight:800;min-height:64px}
 .fbtn.sb{background:#e6f0ff}
 
+/* ===== 自然拼读 / 写数字 ===== */
+.chip.num{background:#c9f0a8}
+.ltr.mir,.mir{display:inline-block;transform:scaleX(-1)}
+.dotsr{font-size:15px;line-height:1.1;word-break:break-all;display:inline-block;max-width:130px}
+.opt.opt-pic{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:118px;padding:6px 4px}
+.opt.opt-pic .pic{font-size:62px;line-height:1.05}
+.opt.opt-pic small{font-size:20px;font-weight:800;color:#555}
+.phcard{background:#fff;border:4px solid var(--line);border-radius:26px;padding:8px 10px;text-align:center;box-shadow:0 5px 0 var(--line);margin:8px 0}
+.phcard .phl{font-size:96px;font-weight:900;color:#4a2fb0;line-height:1.05}.phcard .phl small{font-size:96px;color:var(--org);margin-left:10px}
+.phcard .phe{font-size:60px;line-height:1.1}.phcard .phw{font-size:22px;font-weight:800}
+.phcard .phs{font-size:34px;font-weight:900;color:#c24100;margin-top:2px}.phcard .phc{font-size:17px;color:#555}
+.phbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.phbtns .pb{min-height:72px;font-size:20px;font-weight:800;line-height:1.25;border-radius:18px;background:#e6f0ff;box-shadow:0 3px 0 var(--line)}
+.phbtns .pb.on{background:#ffe08a}
+.phbtns .pb:last-child{background:#d8f7d0}
+
 </style>
 </head>
 <body>
@@ -396,7 +412,8 @@ const HABITS = [
  '自己整理一个小抽屉','到户外走走,找找 3 种不同的颜色','讲一讲今天最开心的一件事','自己读一页绘本(用手指着字)','把文具都放进笔袋里','帮忙把垃圾放进正确的垃圾桶',
  '今晚按时洗漱上床,睡个好觉','自己背上书包,走到门口再放下','给远方的亲人打个电话或视频问好','练习说:「我叫……,我今年……岁,我喜欢……」','把明天上学要带的东西都摆好','和家人聊聊:这个月你最喜欢学什么?'
 ];
-const TIPS = [
+/* 旧课程(拼音+识字+古诗)的家长提示:保留,恢复旧课程时使用 */
+const TIPS_LEGACY = [
  '今天认识字母 A B C:让孩子指着家里的东西说「A 是 apple」,你跟着读一遍,2 分钟就够。',
  '数数小游戏:让孩子数一数家里有几把椅子、几个杯子(10 以内),你只说「对,真棒」。',
  '拿 10 颗豆子,先摆 3 颗,问「再加几颗正好是 10?」,摆给孩子看,让他自己数。',
@@ -429,6 +446,40 @@ const TIPS = [
  '毕业啦!和孩子一起翻翻贴纸册,说一句:「这个月你真努力!」'
 ];
 
+/* 现行课程(数学主线 + 字母拼读 + 写数字)的家长提示:每天 1 条 */
+const TIPS = [
+ '今天开始学字母的「声音」(自然拼读):点卡片上的 🔊 听 a、b、c 怎么读,让孩子轻轻跟读。如果觉得手机读音不准,可家长示范(a 像「啊」的短音,不是字母名)。',
+ '写数字 4 和 5:先让孩子用手指在桌面上「写」一遍,再到屏幕上描。橙色圆点是起笔,红点是收笔。今天字母 D E F 的声音要轻轻读,不用大声。',
+ '拿 10 颗豆子,先摆 3 颗,问「再加几颗正好是 10?」(7)。让孩子自己数,答不出来就看手指,不批评。手机读音不准时,您来示范字母的声音。',
+ '凑十好朋友:你说 7,孩子答 3(和 7 凑成 10)。玩 3 轮就够。今天的字母 j 像「zhe」又短又轻,k 和 c 的声音是一样的。',
+ '今天是数字 1–9 的小复习:让孩子在你手心里用手指写 6 和 9,看谁写得对。易错的 6/9、2/5 多练几次。',
+ '今天是复习日:让孩子带你玩一遍他最喜欢的小关卡,你当学生。',
+ '今天是挑战日:做完后给孩子一个击掌,庆祝他坚持下来。',
+ '十加几:先摆满一排 10 颗豆子,再放 3 颗,问「现在有几颗?」(13)。换成 5、7 再来几次。今天开始写 0(从上面开始逆时针转一圈)。',
+ '写 10:先写 1,再写 0,让孩子说「一个十,零个一」。睡前问一句:「10 加 6 等于几?」答出来就是今天最大的收获。',
+ '用手指玩十加几:双手十指代表 10,另一个人伸出几根,合起来是十几?今天写 11 和 12,先写十位的 1,再写个位。',
+ '9 加几:先问「9 再加几就满 10?」。让孩子在十格框里自己摆,别急着告诉答案。今天字母 Y 和 Z:y 像「耶」,z 像小蜜蜂嗡嗡嗡。',
+ '字母 b 和 d 的形状和声音都容易混:b 的圈圈在右边,d 的圈圈在左边。让孩子用手比划,您示范 b「bu」和 d「de」,都轻轻读。',
+ '今天是复习日:让孩子给你出 3 道题,答错也没关系,开心最重要。',
+ '今天是挑战日:陪他玩一次迷宫或翻牌,你可以故意输给他一次。',
+ '8 加几:把 8 颗豆子放一排,再拿 5 颗,先拿 2 颗凑满 10,再把剩下的 3 颗加上。今天分清 p 和 q:p 的声音是吹一口气 /p/,q 是 /kw/。',
+ '7 加几、6 加几:同样的办法——先凑十,再加剩下的。m 和 n 的声音很像:m 要闭上嘴巴,n 的嘴巴微微张开。',
+ '20 以内加法:让孩子说说「是不是先凑成 10 呢?」,他会解释就说明真的学会了。今天分清 i 和 j 的声音:i 又短又轻,j 像 zhe。',
+ '写 17、18:十位写 1,个位再写,让孩子说「几个十、几个一」。a 和 e 的声音接近:a 嘴巴张大一点,e 嘴巴扁一点。',
+ '整十数:用 10 根筷子一捆,3 捆加 2 捆是几捆?几个十就是几十,让孩子摆一摆。写 19、20。',
+ '今天是复习日:放松玩,让孩子当小老师教你写数字和读字母的声音。',
+ '今天是挑战日:完成后一起看看贴纸册,聊聊哪张最喜欢。',
+ '整十数加法:10 + 20 = 30,40 + 30 = 70。孩子说「几个十加几个十」就对了。再分清 b d p q 的声音。',
+ '20 + 3 = 23:一捆十根筷子加 3 根散的,问「现在有多少根?」。m、n、h 的声音也轻轻读一读。',
+ '购物游戏:妈妈说「买 20 元的本子和 30 元的玩具」,孩子口算一共多少元(整十数)。',
+ '加法应用题:先让孩子说说题目讲了什么故事,再列算式。不急着要答案,说得出来就是进步。',
+ '今天是综合练习:让孩子随便挑一个字母,说说它的声音和关键词(如 B-bear-/b/)。写数字时留意笔顺。',
+ '今天是复习日:不必追求全对,请孩子讲讲最喜欢的一关。',
+ '今天是挑战日:让孩子挑一个数字或字母,教教你怎么写、怎么读。',
+ '今天是毕业复习:孩子玩你就在旁边夸夸他的进步,不挑错。',
+ '毕业啦!和孩子一起翻翻贴纸册,说一句:「这个月你真努力!」'
+];
+
 /* ================= 英语:26 个字母 =================
  * u 大写 / l 小写 / w 关键词 / zh 中文 / e 图 / say 字母名(用于 TTS 的拼写,尽量用英语单词保证读成字母名)
  * ipa 字母名音标(供家长参考) / ph 自然拼读首音(可选"小耳朵") / ini 关键词是否以该字母开头 */
@@ -437,7 +488,7 @@ const LETTERS = [
  {u:'B',l:'b',w:'bear',zh:'熊',e:'🐻',say:'bee',ipa:'/biː/',ph:'/b/'},
  {u:'C',l:'c',w:'cat',zh:'猫',e:'🐱',say:'see',ipa:'/siː/',ph:'/k/'},
  {u:'D',l:'d',w:'dog',zh:'狗',e:'🐶',say:'dee',ipa:'/diː/',ph:'/d/'},
- {u:'E',l:'e',w:'egg',zh:'鸡蛋',e:'🥚',say:'ee',ipa:'/iː/',ph:'/e/'},
+ {u:'E',l:'e',w:'egg',zh:'鸡蛋',e:'🥚',say:'ee',ipa:'/iː/',ph:'/ɛ/'},
  {u:'F',l:'f',w:'fish',zh:'鱼',e:'🐟',say:'eff',ipa:'/ef/',ph:'/f/'},
  {u:'G',l:'g',w:'goat',zh:'山羊',e:'🐐',say:'jee',ipa:'/dʒiː/',ph:'/g/'},
  {u:'H',l:'h',w:'horse',zh:'马',e:'🐴',say:'aitch',ipa:'/eɪtʃ/',ph:'/h/'},
@@ -478,6 +529,88 @@ const LTR_TIPS = {
  AEOC:'a e o c 都有圆圈:o 是完整的圈,c 有个缺口,e 中间有横线,a 带竖线。'
 };
 
+/* ================= 自然拼读(字母发音,不是字母名) =================
+ * 数据驱动:以后要加新部分(如 两个字母的组合 sh/ch、长元音),只要往 PHONICS_EXTRA 里加条目,或扩展下面的字段即可。
+ * sym   音标(家长/孩子看的)
+ * tts   给手机朗读用的近似读法:元音用 ah/eh/ih/aw/uh,辅音用短的 buh/kuh/duh(尽量"轻、短")
+ * cn    给孩子的中文小提示(轻轻读)
+ * 关键词和图来自 LETTERS(w / e / zh)。x 的关键词 fox 是"结尾发 /ks/",其余都是"开头发这个音"。 */
+const PHONICS={
+ a:{sym:'/æ/', tts:'ah',  cn:'嘴巴张大,像"啊"的短音,轻轻读'},
+ b:{sym:'/b/', tts:'buh', cn:'双唇一碰就放开,"bu"短短的,轻轻读'},
+ c:{sym:'/k/', tts:'kuh', cn:'喉咙里轻轻"ke"一下,轻轻读'},
+ d:{sym:'/d/', tts:'duh', cn:'舌尖碰一下上牙后面,"de"短短的,轻轻读'},
+ e:{sym:'/ɛ/', tts:'eh',  cn:'像"诶"的短音,嘴巴扁扁的,轻轻读'},
+ f:{sym:'/f/', tts:'fuh', cn:'上牙轻轻咬下唇,吹出气,轻轻读'},
+ g:{sym:'/g/', tts:'guh', cn:'喉咙里轻轻"ge"一下,轻轻读'},
+ h:{sym:'/h/', tts:'huh', cn:'对着手心哈一口气,轻轻读'},
+ i:{sym:'/ɪ/', tts:'ih',  cn:'像"衣"的短音,很短很轻,轻轻读'},
+ j:{sym:'/dʒ/',tts:'juh', cn:'像"zhe"又轻又短,轻轻读'},
+ k:{sym:'/k/', tts:'kuh', cn:'和 c 的声音一样,"ke"一下,轻轻读'},
+ l:{sym:'/l/', tts:'luh', cn:'舌尖顶住上牙后面,"lu"轻轻读'},
+ m:{sym:'/m/', tts:'muh', cn:'闭上嘴巴,鼻子里"mmm",轻轻读'},
+ n:{sym:'/n/', tts:'nuh', cn:'舌尖顶上牙后面,鼻子里"nnn",轻轻读'},
+ o:{sym:'/ɒ/', tts:'aw',  cn:'嘴巴圆圆的"噢",短短的,轻轻读'},
+ p:{sym:'/p/', tts:'puh', cn:'双唇一碰,吹出一小口气,轻轻读'},
+ q:{sym:'/kw/',tts:'kwuh',cn:'像"夸"的开头,"kw"连起来,轻轻读'},
+ r:{sym:'/r/', tts:'ruh', cn:'嘴巴圆圆,舌头往后卷,"rrr",轻轻读'},
+ s:{sym:'/s/', tts:'suh', cn:'像小蛇"嘶嘶嘶",轻轻读'},
+ t:{sym:'/t/', tts:'tuh', cn:'舌尖碰一下上牙后面,"te"短短的,轻轻读'},
+ u:{sym:'/ʌ/', tts:'uh',  cn:'像很短的"啊",嘴巴放松,轻轻读'},
+ v:{sym:'/v/', tts:'vuh', cn:'上牙轻咬下唇,喉咙震动,轻轻读'},
+ w:{sym:'/w/', tts:'wuh', cn:'嘴巴圆圆,像"wu",轻轻读'},
+ x:{sym:'/ks/',tts:'ksuh',cn:'"k"和"s"连起来,轻轻读'},
+ y:{sym:'/j/', tts:'yuh', cn:'像"耶"的开头,轻轻读'},
+ z:{sym:'/z/', tts:'zuh', cn:'像小蜜蜂"嗡嗡嗡",轻轻读'}
+};
+/* 易混淆的音/字形:找拼读游戏里这些字母出现得更多,也会被放在一起当干扰项。 */
+const PHON_CONF=[['b','d','p','q'],['m','n'],['c','k'],['a','e','i'],['o','u'],['f','v'],['s','z'],['g','j']];
+/* 发音相同的字母(c 和 k 都是 /k/):做选择题时不能同时出现在选项里,否则会有两个"正确答案" */
+const PHON_SAME=[['c','k']];
+/* 朗读速度:正常 / "再慢一点" */
+const PHON_RATE={normal:0.55,slow:0.4};
+const PHON_PAUSE={afterName:1000,afterSound:700,afterSound2:1000,mid:350};
+/* 以后可以扩展:{key:'sh',sym:'/ʃ/',tts:'shh',cn:'...',w:'ship',e:'🚢',zh:'船'} */
+const PHONICS_EXTRA=[];
+
+/* ================= 写数字 =================
+ * 坐标 0–100(和汉字描红同一套引擎)。每个字符:n=每一笔的名称,p=每一笔的折线点(第一个点=起笔点,最后一个点=收笔点)。
+ * 0–9 是基础笔顺;10–20 由两个数字缩小拼成(registerNumber),想加更多数(如 21–100)只要往 DIGIT_SETS 里加数字即可。 */
+const DIGIT_GLYPH={
+ '0':{n:['从上面开始,逆时针转一圈'],p:[[[50,12],[38,16],[29,28],[26,50],[29,72],[38,84],[50,88],[62,84],[71,72],[74,50],[71,28],[62,16],[50,12]]]},
+ '1':{n:['先往左下斜一点,再从上往下竖'],p:[[[36,28],[52,12],[52,88]]]},
+ '2':{n:['先拐弯向右,再斜着往左下,最后横着写'],p:[[[30,30],[36,18],[50,12],[64,18],[70,32],[62,48],[30,86],[72,86]]]},
+ '3':{n:['先写上面的弯,再写下面的弯'],p:[[[30,22],[44,12],[62,16],[68,30],[58,44],[46,48],[62,54],[72,68],[66,84],[48,90],[30,82]]]},
+ '4':{n:['先斜着往左下,再横','再从上往下竖'],p:[[[60,12],[26,60],[78,60]],[[62,34],[62,88]]]},
+ '5':{n:['先竖下来再拐弯','最后在上面写一横'],p:[[[36,16],[32,48],[46,42],[62,46],[70,62],[66,80],[50,90],[30,82]],[[36,14],[68,14]]]},
+ '6':{n:['从上面往左下弯,再绕一个圈'],p:[[[66,14],[42,30],[30,56],[30,74],[44,90],[60,88],[70,74],[64,58],[48,54],[34,62]]]},
+ '7':{n:['先写一横','再往左下斜着写'],p:[[[28,14],[72,14]],[[72,14],[42,88]]]},
+ '8':{n:['像写一个"S",再回到起点'],p:[[[50,12],[34,20],[34,36],[50,48],[68,60],[68,78],[50,90],[32,78],[32,60],[50,48],[66,36],[66,20],[50,12]]]},
+ '9':{n:['先画一个小圈,再往下拉一条尾巴'],p:[[[66,30],[56,14],[40,16],[32,32],[40,48],[58,48],[66,32],[66,60],[58,84],[42,90],[32,84]]]}
+};
+const DIGIT_ZH=['零','一','二','三','四','五','六','七','八','九','十','十一','十二','十三','十四','十五','十六','十七','十八','十九','二十'];
+const DIGIT_EMO=['⭕','🍎','🐟','🎈','🍓','⭐','🐱','🌸','⚽','🍪','🍎','🐟','🎈','🍓','⭐','🐱','🌸','⚽','🍪','🍎','🐟'];
+/* 数字集合(要新增 21–30 等,在这里加,并在 DIGIT_NEW 里安排哪天学) */
+const DIGIT_SETS=['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
+function registerNumber(s){
+  if(STROKES[s])return;
+  if(s.length===1){const g=DIGIT_GLYPH[s];STROKES[s]={n:g.n.slice(),p:g.p.map(pl=>pl.map(q=>q.slice()))};return;}
+  const n=[],p=[],k=0.6; // 两位数:每个数字横向压缩到 60%,左右各放一个
+  Array.from(s).forEach((ch,i)=>{
+    const g=DIGIT_GLYPH[ch],off=i*(100-100*k);
+    g.p.forEach((pl,j)=>{p.push(pl.map(q=>[Math.round((q[0]*k+off)*10)/10,q[1]]));n.push((i?'个位的 ':'十位的 ')+ch+':'+g.n[j]);});
+  });
+  STROKES[s]={n,p};
+}
+DIGIT_SETS.forEach(registerNumber);
+function isDigitStr(s){return typeof s==='string'&&/^\d{1,2}$/.test(s);}
+function numZh(n){return DIGIT_ZH[n]||String(n);}
+/* 30 天里每天新学的数字(0–9 前 4 天学完,后面写 0 和 10–20),其余天循环复习。 */
+const DIGIT_NEW={1:['1','2','3'],2:['4','5'],3:['6','7'],4:['8','9'],8:['0'],9:['10'],10:['11','12'],11:['13','14'],12:['15','16'],15:['17','18'],16:['19','20']};
+/* 复习日/每天重点复习(易写反的数字多练):没有写的天,从已学的数字里按权重抽 */
+const DIGIT_RE={5:['6','9','2','5'],6:['1','2','3','4','5','6','7','8','9'],7:['1','2','3','4','5','6','7','8','9'],13:['0','10','11','12','13'],14:['10','11','12','13','14','15','16'],
+ 17:['17','18','19','20'],18:['2','5','6','9'],19:['10','12','15','18'],22:['3','8','0'],23:['13','14','16'],24:['17','19','20'],25:['11','12','15'],26:['6','9','18','19'],27:['2','5','7','4'],28:['10','20','0']};
+
 /* ================= 工具 ================= */
 const $ = s => document.querySelector(s);
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -513,7 +646,7 @@ function numSvgDots(n,color){return Array.from({length:n},()=>'<span class="dot"
 
 /* ================= 题目生成 ================= */
 const GEN_ERRORS=[];
-const SUBJ={py:'拼音',zi:'识字',poem:'古诗',math:'数学',logic:'逻辑',en:'英语',fun:'小游戏'};
+const SUBJ={py:'拼音',zi:'识字',poem:'古诗',math:'数学',logic:'逻辑',en:'英语',num:'数字',fun:'小游戏'};
 const COLORS=['#ff5a5f','#2f7bff','#19b36b','#ff9f1c','#8e5bff','#ff5fa2'];
 
 function mkChoice(c,o){
@@ -1281,18 +1414,171 @@ function blockLetter(c,n){
   fill(c,n-items.length,gens).forEach(x=>items.push(x));
   return items;
 }
+/* 字母名认读关的"第一小段"(先认字母名,再接拼读关):卡 → 跟读 → 小游戏 */
+
+/* ================= 自然拼读:卡片 + 找拼读 =================
+ * 题型:
+ *  phon      字母发音卡(大卡片 + 慢速拼读 + 再慢一点 + 再听一次 + 跟读)
+ *  phfind    听音选字母(听拼读 → 在 3–4 个字母里选)
+ *  phpic     看字母选图(字母 → 哪个图片的名字以这个音开头)
+ * 答错:温柔提示 + 慢速再读一遍;易混字母(b/d/p/q、m/n、c/k、a/e/i)多出现。 */
+function phOf(u){return PHONICS[u.toLowerCase()];}
+function phSameSound(a,b){a=a.toLowerCase();b=b.toLowerCase();return a===b||PHON_SAME.some(g=>g.includes(a)&&g.includes(b));}
+function phConfWith(c,u){
+  const lo=u.toLowerCase(),ks=knownSet(c),out=[];
+  PHON_CONF.forEach(g=>{if(g.includes(lo))g.forEach(x=>{if(x!==lo&&ks.has(x.toUpperCase())&&!out.includes(x.toUpperCase()))out.push(x.toUpperCase());});});
+  return out;
+}
+function phWeight(c,u){return ltrWeight(c,u)+(phConfWith(c,u).length?1.6:0);}
+function phPick(c,filter){
+  const list=c.spec.knownLtr.filter(u=>!filter||filter(u));
+  if(!list.length)return null;
+  return c.R.wpick(list.map(u=>[u,phWeight(c,u)]),x=>x[1])[0];
+}
+/* 图片题里,名字开头听起来像的也不能同时出现(queen 开头 /kw/ 和 cat/key 的 /k/ 太像) */
+const PHON_START_LIKE=[['c','k','q']];
+function phWrongs(c,t,pred,pic){
+  const R=c.R,ks=c.spec.knownLtr,out=[];
+  const like=u=>pic&&PHON_START_LIKE.some(g=>g.includes(u.toLowerCase())&&g.includes(t.toLowerCase()));
+  const add=u=>{if(!phSameSound(u,t)&&!like(u)&&!out.includes(u)&&(!pred||pred(u)))out.push(u);};
+  R.shuffle(phConfWith(c,t)).forEach(add);
+  R.shuffle(ks).forEach(add);
+  if(out.length<3)R.shuffle(LETTERS.map(x=>x.u)).forEach(add);
+  return out;
+}
+/* ---------- 发音卡 ---------- */
+function gPhonCard(c,u,re){
+  return {kind:'phon',subject:'en',u,re:!!re,title:re?'再听一听拼读':'认识字母的声音',lang:'en',key:'phc|'+u};
+}
+function esc2(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+/* ---------- 听音选字母 ---------- */
+function gPhonFind(c){
+  const R=c.R,t=phPick(c),L=LTR_BY[t],P=phOf(t);
+  const mode=c.diff===0?'both':(R.chance(c.diff===2?.8:.65)?'low':'up');
+  const sh=u=>{const x=LTR_BY[u];return mode==='both'?x.u+x.l:(mode==='low'?x.l:x.u);};
+  const wr=phWrongs(c,t);
+  const it=mkChoice(c,{subject:'en',topic:'phfind',lang:'en',prompt:'听一听,哪个字母发这个音?',say:'',
+    vis:'<div class="bigemo">🔊</div><div class="ifnotts note">这台设备不能朗读:请爸爸妈妈读 '+esc2(P.sym)+'('+esc2(P.cn)+')</div>',
+    correct:{k:t,h:ltrSpan(sh(t))},wrongs:wr.map(u=>({k:u,h:ltrSpan(sh(u))})),keepOrder:true,cols:c.nopt>3?2:3,optCls:'opt-ltr',
+    hint:'再听一次,轻轻跟着读。'+L.u+' '+L.l+' 的声音是 '+P.sym+'。',meta:{type:'phfind',ans:t,sym:P.sym,mode},key:'pf|'+t+'|'+mode});
+  it.phon=t;return it;
+}
+/* ---------- 看字母选图片 ---------- */
+function gPhonPic(c){
+  const R=c.R,t=phPick(c),L=LTR_BY[t],P=phOf(t);
+  const picOpt=u=>{const x=LTR_BY[u];return {k:u,h:'<span class="pic">'+x.e+'</span><small>'+x.w+'</small>'};};
+  // 干扰图:不能是同音字母,也不能是"结尾才有这个音"的图(如 fox 对 f)
+  const wr=phWrongs(c,t,u=>LTR_BY[u].ini!==false,true);
+  const end=L.ini===false;
+  const it=mkChoice(c,{subject:'en',topic:'phpic',lang:'en',prompt:end?'哪个图片的名字,最后有这个音?':'哪个图片的名字,是用这个音开头的?',say:'',
+    vis:'<div class="ltrbig">'+ltrSpan(L.u+' '+L.l,'xl')+'</div><div class="note">'+esc2(P.sym)+'</div><div class="ifnotts note">'+esc2(P.cn)+'</div>',
+    correct:picOpt(t),wrongs:wr.map(picOpt),keepOrder:true,cols:2,optCls:'opt-pic',
+    hint:'点 🔊 再听一次,'+L.u+' '+L.l+' 的声音是 '+P.sym+',像 '+L.w+(end?' 的结尾':' 的开头')+'。',meta:{type:'phpic',ans:t,sym:P.sym},key:'pp|'+t});
+  it.phon=t;return it;
+}
+/* ---------- 拼读关:先发音卡,再找拼读 ---------- */
+function blockPhonics(c,n){
+  const s=c.spec,items=[];
+  let cards=[];
+  if(s.type==='learn'&&s.newLtr.length)cards=s.newLtr.slice(0,3).map(u=>gPhonCard(c,u,false));
+  else{const u=phPick(c);if(u)cards=[gPhonCard(c,u,true)];}      // 复习/没有新字母:随机抽一个字母,先听它的声音
+  cards.filter(x=>!c.used.has(x.key)).slice(0,Math.max(1,n-2)).forEach(x=>{c.used.add(x.key);items.push(x);});
+  const nk=s.knownLtr.length;
+  const gens=[[gPhonFind,3],[gPhonPic,nk>=3?2.2:1]];
+  // 每个拼读关至少有 1 道"听音选字母"和(够位置时)1 道"看字母选图"
+  fill(c,Math.min(1,n-items.length),[[gPhonFind,1]]).forEach(x=>items.push(x));
+  if(n-items.length>=2)fill(c,1,[[gPhonPic,1]]).forEach(x=>items.push(x));
+  fill(c,n-items.length,gens).forEach(x=>items.push(x));
+  return items;
+}
+
+/* ================= 写数字 & 认数字 =================
+ * 题型:learn(数字卡) / trace(描数字,和汉字描红同一引擎) / 数一数选数字 / 数字大写读法 / 后面是几 / 补数 / 连一连 / 哪个写对了 */
+function digWeight(c,d){
+  const s=c.spec;let w=1;
+  if(s.newDig.includes(d))w+=4;
+  if(s.reDig.includes(d))w+=3;
+  if(['6','9','2','5','12','21','16','19','10','20'].includes(d)&&s.knownDig.includes(d))w+=0.6; // 容易写反/写混的数字多练一点
+  return w;
+}
+function digPick(c,filter){
+  const list=c.spec.knownDig.filter(d=>!filter||filter(d));
+  if(!list.length)return null;
+  return c.R.wpick(list.map(d=>[d,digWeight(c,d)]),x=>x[1])[0];
+}
+function digCard(c){
+  const s=c.spec;if(!s.newDig.length)return null;
+  return {kind:'learn',subject:'num',title:'今天认识、书写新数字',items:s.newDig.map(d=>{const n=+d;return {big:d,sub:numZh(n),emo:(n>=1&&n<=5?DIGIT_EMO[n].repeat(n):DIGIT_EMO[n]),say:numZh(n)};}),key:'dl|'+s.newDig.join(',')};
+}
+function gDigTrace(c,ch){
+  const n=+ch;
+  return {kind:'trace',subject:'num',num:true,ch,key:'dt|'+ch,prompt:'跟着小圆点,一笔一笔写数字「'+ch+'」',say:'写数字'+numZh(n)};
+}
+const DIG_MIRROR=['2','3','4','5','6','7','9'];
+function gDigCount(c){
+  const R=c.R,nums=c.spec.knownDig.map(Number).filter(n=>n>=1);if(!nums.length)return null;
+  const d=R.wpick(nums.map(n=>[String(n),digWeight(c,String(n))]),x=>x[1])[0],n=+d,em=R.pick(OBJ_EMO),hi=Math.min(20,Math.max(9,n+3));
+  return mkChoice(c,numOpts(c,n,0,hi,{subject:'num',topic:'dcount',prompt:'数一数,一共有几个?',say:'数一数,一共有几个?',vis:emoGrid(em,n,n>10?10:5),
+    hint:'一个一个指着数,数到最后一个就是答案~',meta:{type:'dcount',ans:n},key:'dc|'+n+em}));
+}
+function gDigZh(c){
+  const R=c.R,d=digPick(c,x=>+x>=1);if(!d)return null;const n=+d,hi=Math.min(20,Math.max(9,n+3));
+  return mkChoice(c,numOpts(c,n,0,hi,{subject:'num',topic:'dzh',prompt:'「'+numZh(n)+'」是数字几?',say:numZh(n)+',是数字几?',vis:'<div class="chbig">'+numZh(n)+'</div>',
+    hint:'想一想,'+numZh(n)+'个苹果,是几个?',meta:{type:'dzh',ans:n},key:'dz|'+n}));
+}
+function gDigNext(c){
+  const R=c.R,mx=Math.max.apply(null,c.spec.knownDig.map(Number));if(mx<2)return null;
+  const n=R.int(1,Math.min(mx,19)),ans=n+1;
+  return mkChoice(c,numOpts(c,ans,0,Math.min(20,ans+4),{subject:'num',topic:'dnext',prompt:n+' 的后面是几?',say:n+'的后面是几?',vis:'<div class="seq"><b>'+n+'</b><b class="q">?</b></div>',
+    hint:'数数歌:'+n+',接着数~',meta:{type:'dnext',n,ans},key:'dn|'+n}));
+}
+function gDigMissing(c){
+  const R=c.R,mx=Math.max.apply(null,c.spec.knownDig.map(Number));if(mx<3)return null;
+  const a=R.int(1,Math.min(mx,19)-1),ans=a+1,b=a+2;
+  return mkChoice(c,numOpts(c,ans,0,Math.min(20,b+3),{subject:'num',topic:'dmiss',prompt:'补上缺的数',say:'补上缺的数',vis:'<div class="seq"><b>'+a+'</b><b class="q">?</b><b>'+b+'</b></div>',
+    hint:'从 '+a+' 开始往后数~',meta:{type:'dmiss',a,b,ans},key:'dm|'+a}));
+}
+function gDigMatch(c){
+  const R=c.R,list=R.shuffle(c.spec.knownDig.filter(d=>+d>=1&&+d<=9));if(list.length<3)return null;
+  const set=list.slice(0,3),ps=set.map((d,i)=>({id:i,l:'<span class="cz">'+d+'</span>',r:'<span class="dotsr">'+DIGIT_EMO[+d].repeat(+d)+'</span>'}));
+  return {kind:'match',subject:'num',topic:'dmatch',prompt:'连一连:数字和数量',say:'连一连,数字和数量是好朋友',pairs:R.shuffle(ps),key:'dmt|'+set.slice().sort().join(''),meta:{type:'dmatch',set}};
+}
+function gDigMirror(c){
+  const R=c.R,d=digPick(c,x=>DIG_MIRROR.includes(x));if(!d)return null;
+  const opts=R.shuffle([{k:'ok',h:'<span class="ltr">'+d+'</span>',ok:true},{k:'mir',h:'<span class="ltr mir">'+d+'</span>',ok:false}]);
+  return {kind:'choice',subject:'num',topic:'dmir',prompt:'哪个「'+d+'」写对了?',say:'哪个'+numZh(+d)+'写对了?',vis:'',opts,cols:2,fixed:true,optCls:'opt-ltr',
+    hint:'对一对笔顺:'+STROKES[d].n[0],meta:{type:'dmir',d},key:'dmr|'+d};
+}
+/* ---------- 数字关:数字卡 → 描数字 → 认数字小题 ---------- */
+function blockDigit(c,n){
+  const s=c.spec,items=[];
+  const card=(s.type==='learn')?digCard(c):null;
+  if(card&&!c.used.has(card.key)){c.used.add(card.key);items.push(card);}
+  const tr=Math.max(1,Math.min(3,n-items.length-1,n>=5?3:2));
+  // 优先描今天的新数字,再描要复习的
+  const fresh=d=>!c.used.has('dt|'+d),order=[];s.newDig.filter(fresh).forEach(d=>order.push(d));
+  let rest=c.R.shuffle(s.knownDig.filter(d=>!order.includes(d)&&fresh(d)));
+  if(order.length+rest.length<tr)rest=rest.concat(s.knownDig.filter(d=>!order.includes(d)&&!rest.includes(d)));
+  const wl=rest.map(d=>[d,digWeight(c,d)]);
+  while(order.length<tr&&wl.length){const p=c.R.wpick(wl,x=>x[1])[0];order.push(p);wl.splice(wl.findIndex(x=>x[0]===p),1);}
+  order.slice(0,tr).forEach(d=>{const it=gDigTrace(c,d);c.used.add(it.key);items.push(it);});
+  const mx=Math.max.apply(null,s.knownDig.map(Number));
+  const gens=[[gDigCount,3],[gDigZh,mx>=2?1:0],[gDigNext,mx>=2?1.4:0],[gDigMissing,mx>=3?1.6:0],[gDigMatch,mx>=4?1.3:0],[gDigMirror,1.1]].filter(x=>x[1]>0);
+  fill(c,n-items.length,gens).forEach(x=>items.push(x));
+  return items;
+}
 
 /* ================= 课程表(30天) ================= */
 const INIT_NEW={1:['b','p','m','f'],2:['d','t','n','l'],3:['g','k','h'],4:['j','q','x'],5:['z','c','s'],15:['zh','ch','sh'],16:['r','y','w']};
 const FIN_NEW={8:['a','o','e'],9:['i','u','ü'],10:['ai','ei','ui'],11:['ao','ou','iu'],12:['ie','üe','er'],22:['an','en','in'],23:['un','ün'],24:['ang','eng'],25:['ing','ong']};
-const WEEKS=[
+const WEEKS_LEGACY=[
  {name:'声母小镇',icon:'🏘️',desc:'声母 · 凑十 · 字母 A–P'},
  {name:'韵母乐园',icon:'🎡',desc:'韵母 · 十加几 · 字母 N–Z 和 b d'},
  {name:'拼读大冒险',icon:'🚀',desc:'拼一拼 · 凑十法进位加 · 易混字母'},
  {name:'小学预备营',icon:'🏫',desc:'整十数加法 · 应用题 · 字母综合'},
  {name:'毕业典礼',icon:'🎓',desc:'大复习 · 毕业挑战'}
 ];
-const OUTLINE=[
+const OUTLINE_LEGACY=[
  '声母 b p m f · 数到10 · 一二三四五 · 字母 A B C','声母 d t n l · 比大小 · 六七八九十 · 字母 D E F','声母 g k h · 5以内加法 · 人口手足目 · 字母 G H I','声母 j q x · 凑十(几和几是10) · 耳头大小上 · 字母 J K L','声母 z c s · 凑十 · 下左右中多 · 字母 M O P','本周大复习(复习日)','周末挑战赛(挑战日)',
  '韵母 a o e · 十加几 10+3 · 少日月水火 · 字母 N R S','韵母 i u ü · 十加几 · 山石田土木 · 字母 Q T U','韵母 ai ei ui · 十加几 · 天地云雨风 · 字母 V W X','韵母 ao ou iu · 十加几 · 雪花草树鸟 · 字母 Y Z','韵母 ie üe er · 十加几巩固 · 鱼虫牛羊马 · 易混字母 b d','本周大复习(复习日)','周末挑战赛(挑战日)',
  '声母 zh ch sh · 9加几(凑十法) · 狗猫爸妈你 · 易混字母 p q','声母 r y w · 9加几 8加几 · 我他们好白 · 易混字母 m n','声母韵母拼一拼 · 8加几 · 红黄青绿春 · 易混字母 i j','拼读 · 7加几 6加几 · 夏秋冬东南 · 易混字母 a e','拼读与词语 · 20以内加法 · 西北门车刀 · 易混字母 u v w','本周大复习(复习日)','周末挑战赛(挑战日)',
@@ -1300,8 +1586,41 @@ const OUTLINE=[
  '毕业大复习','毕业大挑战'
 ];
 /* 数学题型的解锁日。没有任何减法题型。 core=加法主线,复习时权重更高 */
-const MATH_UNLOCK={count:1,compare:2,shape:3,compose:3,add:3,make10:4,position:5,tenplus:8,seq:10,order:11,carry:15,pattern:16,clock:18,add20:19,hundred:20,tens:22,tensones:24,word:25,mixed:27};
-const MATH_CORE={add:1,make10:1,tenplus:1,carry:1,add20:1,tens:1,tensones:1,word:1,mixed:1,compose:0.5};
+const MATH_UNLOCK_LEGACY={count:1,compare:2,shape:3,compose:3,add:3,make10:4,position:5,tenplus:8,seq:10,order:11,carry:15,pattern:16,clock:18,add20:19,hundred:20,tens:22,tensones:24,word:25,mixed:27};
+const MATH_CORE_LEGACY={add:1,make10:1,tenplus:1,carry:1,add20:1,tens:1,tensones:1,word:1,mixed:1,compose:0.5};
+
+/* ===== 现行课程(focus):数学主线 + 字母拼读 + 写数字 =====
+ * 拼音/识字/古诗/描汉字的代码和数据都还在(INIT_NEW、FIN_NEW、CHAR_PLAN、POEMS、STROKES 汉字…),只是默认不进每天的课程。
+ * 想恢复旧课程:把下面的 COURSE_MODE 改成 'legacy' 重新生成即可(见 README)。 */
+const COURSE_MODE='focus';
+const WEEKS_FOCUS=[
+ {name:'数字小学堂',icon:'🔢',desc:'写数字 1–9 · 凑十 · 拼读 A–P'},
+ {name:'凑十乐园',icon:'🎡',desc:'写数字 0、10–16 · 十加几 · 9加几 · 拼读 N–Z'},
+ {name:'进位加法营',icon:'🚀',desc:'写数字 17–20 · 8加几 7加几 · 20以内加法 · 易混拼读'},
+ {name:'整十加法营',icon:'🏫',desc:'整十数加法 · 应用题 · 数字与拼读综合'},
+ {name:'毕业典礼',icon:'🎓',desc:'大复习 · 毕业挑战'}
+];
+const OUTLINE_FOCUS=[
+ '写数字 1 2 3 · 数数与分合 · 拼读 A B C','写数字 4 5 · 10以内加法 · 拼读 D E F','写数字 6 7 · 凑十(几和几是10) · 拼读 G H I','写数字 8 9 · 凑十 · 拼读 J K L','数字 1–9 大复习 · 凑十巩固 · 拼读 M O P','本周大复习(复习日)','周末挑战赛(挑战日)',
+ '写数字 0 · 十加几 10+3 · 拼读 N R S','写数字 10 · 十加几 · 拼读 Q T U','写数字 11 12 · 十加几巩固 · 拼读 V W X','写数字 13 14 · 9加几(凑十法) · 拼读 Y Z','写数字 15 16 · 9加几 · 易混拼读 b d','本周大复习(复习日)','周末挑战赛(挑战日)',
+ '写数字 17 18 · 8加几 · 易混拼读 p q','写数字 19 20 · 7加几 6加几 · 易混拼读 m n','数字 0–20 综合 · 20以内加法 · 易混拼读 i j','数字书写综合 · 20以内加法 · 易混拼读 a e','数字书写综合 · 整十数加法 10+20 · 易混拼读 u v w','本周大复习(复习日)','周末挑战赛(挑战日)',
+ '数字 0–20 书写 · 整十数加法 30+20 · 易混拼读 b d p q','数字书写 · 整十加几 20+3 · 易混拼读 m n h','数字书写 · 整十加几 · 拼读综合(E F M W)','数字书写 · 加法应用题 · 易混拼读 i j l t','数字书写 · 加法综合 · 易混拼读 a e o c','本周大复习(复习日)','周末挑战赛(挑战日)',
+ '毕业大复习','毕业大挑战'
+];
+/* 数学题型的解锁日。没有任何减法题型。起步 count/compose(数数与分合)→ 10以内加法 → 凑十 → 十加几 → 9加几…(进位加) → 20以内 → 整十数加法 */
+const MATH_UNLOCK_FOCUS={count:1,compose:1,add:2,make10:3,tenplus:8,carry:11,add20:17,hundred:17,tens:19,tensones:23,word:25,mixed:26};
+const MATH_CORE_FOCUS={add:1,make10:1,tenplus:1,carry:1,add20:1,tens:1,tensones:1,word:1,mixed:1,compose:0.5};
+/* 每天的数学重点(这几个题型在"数学乐园"里出现得更多),一眼看清 30 天的数学进度 */
+const MATH_FOCUS_FOCUS={1:['count','compose'],2:['add','compose'],3:['make10','add'],4:['make10'],5:['make10','add'],8:['tenplus','make10'],9:['tenplus'],10:['tenplus','make10'],11:['carry'],12:['carry','tenplus'],
+ 15:['carry'],16:['carry'],17:['add20','carry'],18:['add20','carry'],19:['tens','add20'],22:['tens'],23:['tensones','tens'],24:['tensones','tens'],25:['word','tensones'],26:['mixed']};
+/* 固定每天至少出一题的练习:[题型,起,止,出现在第几关(0 起)] */
+const MATH_FORCE_FOCUS=[['tenplus',9,28,0],['make10',4,16,2],['carry',12,26,2],['tens',22,28,2]];
+const COURSES={
+ focus:{weeks:WEEKS_FOCUS,outline:OUTLINE_FOCUS,mathUnlock:MATH_UNLOCK_FOCUS,mathCore:MATH_CORE_FOCUS,mathFocus:MATH_FOCUS_FOCUS,mathForce:MATH_FORCE_FOCUS,tips:TIPS},
+ legacy:{weeks:WEEKS_LEGACY,outline:OUTLINE_LEGACY,mathUnlock:MATH_UNLOCK_LEGACY,mathCore:MATH_CORE_LEGACY,mathFocus:{},mathForce:[['tenplus',9,28,1]],tips:TIPS_LEGACY}
+};
+const COURSE=COURSES[COURSE_MODE]||COURSES.focus;
+const WEEKS=COURSE.weeks,OUTLINE=COURSE.outline,MATH_UNLOCK=COURSE.mathUnlock,MATH_CORE=COURSE.mathCore;
 const MATH_GENS={count:[gCount,gCountPick,gCountSeq],compare:[gCompare],shape:[gShape],compose:[gCompose],position:[gPosition],add:[gAdd],make10:[gMake10],tenplus:[gTenPlus],seq:[gSeq],order:[gOrder],
   carry:[gCarry],pattern:[gPattern],clock:[gClock],add20:[gAdd20],hundred:[gHundred],tens:[gTens],tensones:[gTensOnes],word:[gWord],mixed:[gMixed]};
 
@@ -1327,8 +1646,12 @@ function daySpec(day){
   const newLtr=day>=29?[]:Array.from(LTR_NEW[day]||''),reLtr=day>=29?[]:Array.from(LTR_RE[day]||'');
   if(type!=='learn'&&day<29){for(let d=(week-1)*7+1;d<=day;d++){weekLtr=weekLtr.concat(Array.from(LTR_NEW[d]||''),Array.from(LTR_RE[d]||''));}}
   if(day>=29)weekLtr=ALL_U.slice();
-  return {day,week,dw,type,week_name:WEEKS[week-1].name,title:OUTLINE[day-1],knownInit,knownFin,knownChars,newInit,newFin,newChars,weekChars,weekInit,weekFin,topics,knownLtr,newLtr,reLtr,weekLtr,
-    poem:day>=29?-1:Math.min(3,week-1),habit:HABITS[day-1],tip:TIPS[day-1]};
+  // 写数字:已学、今天新学、今天重点再练的数字
+  let knownDig=[];for(let d=1;d<=day;d++)(DIGIT_NEW[d]||[]).forEach(x=>knownDig.push(x));
+  if(day>=29)knownDig=DIGIT_SETS.slice();
+  const newDig=day>=29?[]:(DIGIT_NEW[day]||[]).slice(),reDig=day>=29?[]:(DIGIT_RE[day]||[]).slice();
+  return {day,week,dw,type,knownDig,newDig,reDig,focus:(COURSE.mathFocus||{})[day]||[],week_name:WEEKS[week-1].name,title:OUTLINE[day-1],knownInit,knownFin,knownChars,newInit,newFin,newChars,weekChars,weekInit,weekFin,topics,knownLtr,newLtr,reLtr,weekLtr,
+    poem:day>=29?-1:Math.min(3,week-1),habit:HABITS[day-1],tip:COURSE.tips[day-1]};
 }
 function makeCtx(cur,diff,idx,loop){
   const cday=contentDay(cur),spec=daySpec(cday);
@@ -1394,18 +1717,23 @@ function blockChars(c,n){
 function blockTrace(c,n){const out=[];const cc=(c.spec.type!=='learn'&&c.spec.weekChars.length&&c.cday<29)?Object.assign({},c,{spec:Object.assign({},c.spec,{newChars:c.spec.weekChars})}):c;return fill(cc,n,[[gTrace,1]]);}
 function blockStroke(c,n){return fill(c,n,[[gStrokeOrder,2],[gStrokeShape,1],[gStrokeCount,1]]);}
 function blockMath(c,n){
-  const s=c.spec,d=c.cday,gens=[],items=[];
+  const s=c.spec,d=c.cday,gens=[],items=[],focus=s.focus||[];
   s.topics.forEach(t=>{
     const age=d-MATH_UNLOCK[t];let w=1;
     if(s.type==='learn'){if(age===0)w=4;else if(age<=2)w=2.2;}
     else if(s.type==='challenge'){w=age>=6?1.8:1.2;}
     const core=MATH_CORE[t];
     if(core&&d>=6)w*=1+core*0.5; else if(!core&&d>=8)w*=0.55;      // 8 天以后,主线是加法
+    if(focus.includes(t))w*=3;                                          // 当天的数学重点
     if(t==='tenplus'&&d>=9&&d<=24)w*=1.5;                              // 十加个位数多巩固
     MATH_GENS[t].forEach(g=>gens.push([g,w/MATH_GENS[t].length*(t==='count'&&d>8?0.5:1)]));
   });
-  // 十加个位数:第 9–28 天,每天(数学乐园里)至少一题
-  if(c.idx===1&&d>=9&&d<=28&&s.topics.includes('tenplus')){const it=gTenPlus(c);c.used.add(it.key);items.push(it);}
+  // 固定每天至少出一题的练习(见 MATH_FORCE_*)
+  (COURSE.mathForce||[]).forEach(f=>{
+    if(c.idx===f[3]&&d>=f[1]&&d<=f[2]&&s.topics.includes(f[0])&&items.length<n-1){
+      for(let t=0;t<8;t++){const it=MATH_GENS[f[0]][0](c);if(!c.used.has(it.key)){c.used.add(it.key);items.push(it);break;}}
+    }
+  });
   // 当天较早的数学关出过的题,这里不再重复
   return items.concat(fill(c,n-items.length,gens));
 }
@@ -1439,8 +1767,27 @@ function blockPoem(c,n){
   return items;
 }
 function blockSay(c,n){return fill(c,n,[[gSay,1]]);}
-const BLOCKS={pinyin:blockPinyin,word:blockWord,chars:blockChars,trace:blockTrace,stroke:blockStroke,math:blockMath,logic:blockLogic,poem:blockPoem,say:blockSay,letter:blockLetter};
-function levelPlan(count){
+const BLOCKS={pinyin:blockPinyin,word:blockWord,chars:blockChars,trace:blockTrace,stroke:blockStroke,math:blockMath,logic:blockLogic,poem:blockPoem,say:blockSay,letter:blockLetter,phonics:blockPhonics,digit:blockDigit};
+/* 现行课程:数学是主线(第 1、3 关 + 第 5 关一部分),字母名认读后紧接着慢速拼读,写数字单独一关。 */
+function levelPlanFocus(count){
+  if(count>=5)return [
+    {name:'数学乐园',icon:'🔢',parts:[['math',7]]},
+    {name:'字母拼读屋',icon:'🅰️',parts:[['letter',3],['phonics',5]]},
+    {name:'加法训练营',icon:'➕',parts:[['math',7]]},
+    {name:'写数字',icon:'✏️',parts:[['digit',6]]},
+    {name:'小小挑战',icon:'🌟',parts:[['math',3],['phonics',2],['digit',2],['logic',1]]}];
+  if(count===4)return [
+    {name:'数学乐园',icon:'🔢',parts:[['math',7]]},
+    {name:'字母拼读屋',icon:'🅰️',parts:[['letter',3],['phonics',4]]},
+    {name:'写数字',icon:'✏️',parts:[['digit',5],['logic',1]]},
+    {name:'加法训练营',icon:'➕',parts:[['math',6],['phonics',1]]}];
+  return [
+    {name:'数学乐园',icon:'🔢',parts:[['math',6]]},
+    {name:'字母拼读屋',icon:'🅰️',parts:[['letter',2],['phonics',4]]},
+    {name:'写数字和加法',icon:'✏️',parts:[['digit',4],['math',2]]}];
+}
+/* 旧课程(拼音+识字+古诗),COURSE_MODE='legacy' 时使用 */
+function levelPlanLegacy(count){
   if(count>=5)return [
     {name:'拼音小镇',icon:'🔤',parts:[['pinyin',5],['word',1]]},
     {name:'数学乐园',icon:'🔢',parts:[['math',7]]},
@@ -1457,14 +1804,19 @@ function levelPlan(count){
     {name:'数学乐园',icon:'🔢',parts:[['math',6]]},
     {name:'字母和古诗',icon:'🅰️',parts:[['letter',5],['poem',1],['trace',1]]}];
 }
+function levelPlan(count){return COURSE_MODE==='legacy'?levelPlanLegacy(count):levelPlanFocus(count);}
+const DEDUPE_PARTS=['math','digit','phonics','letter'];
 function buildLevel(cur,diff,idx,count,loop){
   const plan=levelPlan(count),p=plan[Math.min(idx,plan.length-1)];
   const c=makeCtx(cur,diff,idx,loop);
-  // 同一天里,前面的数学关出过的题,后面的数学关不再重复出
-  if(p.parts.some(pt=>pt[0]==='math')){
+  // 同一天里,前面的关出过的数学/写数字/拼读题,后面的关不再重复出
+  if(p.parts.some(pt=>DEDUPE_PARTS.includes(pt[0]))){
     for(let j=0;j<idx&&j<plan.length;j++){
-      const pj=plan[j],mp=pj.parts.find(pt=>pt[0]==='math');
-      if(mp){const cj=makeCtx(cur,diff,j,loop);BLOCKS.math(cj,mp[1]).forEach(it=>c.used.add(it.key));}
+      const pj=plan[j];
+      if(pj.parts.some(pt=>DEDUPE_PARTS.includes(pt[0]))){
+        const cj=makeCtx(cur,diff,j,loop);
+        pj.parts.forEach(pt=>{if(DEDUPE_PARTS.includes(pt[0]))BLOCKS[pt[0]](cj,pt[1]).forEach(it=>c.used.add(it.key));});
+      }
     }
   }
   let items=[];
@@ -1475,7 +1827,8 @@ function buildLevel(cur,diff,idx,count,loop){
 /* ================= 存档 ================= */
 const SKEY='xiaoxue_v1_progress';
 let storageOK=true,memStore=null;
-function defaultState(){return {v:1,cv:2,ear:false,diff:1,levels:5,sound:true,voice:true,cur:1,assign:'',stars:0,streak:0,best:0,lastDone:'',days:{},stickers:[],totalDays:0,loops:0,created:todayStr(),petName:''};}
+function defaultState(){return {v:1,cv:3,ear:false,slow:false,diff:1,levels:5,sound:true,voice:true,cur:1,assign:'',stars:0,streak:0,best:0,lastDone:'',days:{},stickers:[],totalDays:0,loops:0,created:todayStr(),petName:''};}
+const STAT_KEYS=['py','zi','poem','math','logic','en','num'];
 function clampInt(v,a,b,d){v=parseInt(v,10);return isNaN(v)?d:Math.max(a,Math.min(b,v));}
 function sanitize(o){
   const d=defaultState();if(!o||typeof o!=='object')return d;
@@ -1483,16 +1836,16 @@ function sanitize(o){
   d.cur=clampInt(o.cur,1,9999,1);d.assign=typeof o.assign==='string'?o.assign.slice(0,10):'';d.stars=clampInt(o.stars,0,1e7,0);
   d.streak=clampInt(o.streak,0,99999,0);d.best=clampInt(o.best,0,99999,0);d.lastDone=typeof o.lastDone==='string'?o.lastDone.slice(0,10):'';
   d.totalDays=clampInt(o.totalDays,0,99999,0);d.loops=clampInt(o.loops,0,99999,0);d.created=typeof o.created==='string'?o.created.slice(0,10):d.created;
-  d.ear=o.ear===true;
+  d.ear=o.ear===true;d.slow=o.slow===true;
   const oldcv=clampInt(o.cv,1,99,1);
   d.petName=typeof o.petName==='string'?o.petName.slice(0,8):'';
   if(Array.isArray(o.stickers))d.stickers=o.stickers.map(x=>parseInt(x,10)).filter(x=>x>=0&&x<STICKERS.length).filter((x,i,a)=>a.indexOf(x)===i);
   if(o.days&&typeof o.days==='object'){
     Object.keys(o.days).forEach(k=>{
       const n=parseInt(k,10);if(!(n>=1&&n<=9999))return;const r=o.days[k]||{};
-      const st={};['py','zi','poem','math','logic','en'].forEach(s=>{const a=(r.st&&r.st[s])||[0,0];st[s]=[clampInt(a[0],0,9999,0),clampInt(a[1],0,9999,0)];});
+      const st={};STAT_KEYS.forEach(s=>{const a=(r.st&&r.st[s])||[0,0];st[s]=[clampInt(a[0],0,9999,0),clampInt(a[1],0,9999,0)];});
       const done=!!r.done;let lv=clampInt(r.lv,0,5,0);
-      if(oldcv<2&&!done)lv=Math.min(lv,2); // 旧版(v1)课程只有拼音/数学在前两关;第3关起内容变了,没做完的天从第3关重新开始
+      if(oldcv<3&&!done)lv=0; // 旧版(v1/v2)课程已改成「拼读+数学+写数字」,没做完的那一天从第 1 关重新开始(星星、贴纸、连续天数都保留)
       d.days[n]={done,date:typeof r.date==='string'?r.date.slice(0,10):'',lv,stars:clampInt(r.stars,0,9999,0),st,habit:!!r.habit,plays:clampInt(r.plays,0,999,0)};
     });
   }
@@ -1510,7 +1863,7 @@ function saveState(){
 }
 let S=loadState();
 function dayRec(d){
-  if(!S.days[d])S.days[d]={done:false,date:'',lv:0,stars:0,st:{py:[0,0],zi:[0,0],poem:[0,0],math:[0,0],logic:[0,0],en:[0,0]},habit:false,plays:0};
+  if(!S.days[d])S.days[d]={done:false,date:'',lv:0,stars:0,st:{py:[0,0],zi:[0,0],poem:[0,0],math:[0,0],logic:[0,0],en:[0,0],num:[0,0]},habit:false,plays:0};
   return S.days[d];
 }
 function ensureToday(){
@@ -1558,7 +1911,7 @@ const Sfx=(function(){
 /* ================= 朗读 ================= */
 const Tts=(function(){
   const ok=typeof window!=='undefined'&&'speechSynthesis' in window&&typeof window.SpeechSynthesisUtterance==='function';
-  let voice=null,enVoice=null;
+  let voice=null,enVoice=null,seqTok=0;
   function pick(){if(!ok)return;try{const vs=window.speechSynthesis.getVoices()||[];
     voice=vs.find(v=>/zh[-_]CN/i.test(v.lang))||vs.find(v=>/^zh/i.test(v.lang))||null;
     enVoice=vs.find(v=>/en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;}catch(e){}}
@@ -1572,9 +1925,26 @@ const Tts=(function(){
       if(!ok||(!force&&!S.voice)||!text)return false;
       try{const en=lang==='en',u=new window.SpeechSynthesisUtterance(String(text));
         u.lang=en?'en-US':'zh-CN';u.rate=en?.75:.85;u.pitch=en?1:1.1;const v=en?enVoice:voice;if(v)u.voice=v;
-        window.speechSynthesis.cancel();window.speechSynthesis.speak(u);return true;}catch(e){return false;}
+        seqTok++;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);return true;}catch(e){return false;}
     },
-    stop(){if(ok){try{window.speechSynthesis.cancel();}catch(e){}}}
+    // 按顺序读一串(每段可以有自己的停顿 pause,毫秒),用于自然拼读:字母名 → 停 1 秒 → 音 ×2 → "A says … as in apple"
+    seq(steps,o){
+      o=o||{};if(!ok||(!o.force&&!S.voice)||!steps||!steps.length)return false;
+      try{window.speechSynthesis.cancel();}catch(e){}
+      const tok=++seqTok;let i=0;
+      const next=()=>{
+        if(tok!==seqTok||i>=steps.length)return;const st=steps[i++];
+        try{
+          const u=new window.SpeechSynthesisUtterance(String(st.t));u.lang='en-US';u.rate=st.rate||o.rate||.55;u.pitch=1;if(enVoice)u.voice=enVoice;
+          let fired=false;const go=()=>{if(fired)return;fired=true;if(tok!==seqTok)return;setTimeout(next,st.pause||0);};
+          u.onend=go;u.onerror=go;
+          setTimeout(go,2500+String(st.t).length*600/(u.rate||.5)); // 有的浏览器不触发 onend,兜底
+          window.speechSynthesis.speak(u);
+        }catch(e){}
+      };
+      next();return true;
+    },
+    stop(){seqTok++;if(ok){try{window.speechSynthesis.cancel();}catch(e){}}}
   };
 })();
 
@@ -1667,9 +2037,9 @@ function addStar(n){
   S.stars+=n;run.lvStars+=n;run.dayStars+=n;if(!run.practice)dayRec(run.cur).stars+=n;
   const e=$('#lvs');if(e)e.textContent=run.lvStars;floatText('+'+n+' ⭐');Sfx.star();saveState();
 }
-const NOSTAT={trace:1,memory:1,maze:1,say:1,learn:1,poem:1,abc:1,follow:1};
+const NOSTAT={phon:1,trace:1,memory:1,maze:1,say:1,learn:1,poem:1,abc:1,follow:1};
 function record(it,ok){
-  if(run.practice||it.counted||NOSTAT[it.kind]||!['py','zi','poem','math','logic','en'].includes(it.subject))return;
+  if(run.practice||it.counted||NOSTAT[it.kind]||!STAT_KEYS.includes(it.subject))return;
   it.counted=true;const st=dayRec(run.cur).st[it.subject];st[1]++;if(ok)st[0]++;saveState();
 }
 function queueRetry(it){
@@ -1679,8 +2049,9 @@ function queueRetry(it){
   if(it.nums)c.nums=shuf(it.nums);
   run.q.push(c);
 }
+function phBtn(u){return '<button class="sbtn tts" data-act="phplay" data-u="'+esc(u)+'" aria-label="听拼读">🔊 听拼读</button>';}
 function qhead(it){
-  return '<div class="qtop"><span class="chip '+it.subject+'">'+(SUBJ[it.subject]||'')+'</span>'+sayBtn(it.say,it.lang)+'</div><div class="prompt">'+esc(it.prompt)+(it.retry?'<span class="retag">再试一次</span>':'')+'</div>'+(it.vis?'<div class="vis">'+it.vis+'</div>':'');
+  return '<div class="qtop"><span class="chip '+it.subject+'">'+(SUBJ[it.subject]||'')+'</span>'+(it.phon?phBtn(it.phon):sayBtn(it.say,it.lang))+'</div><div class="prompt">'+esc(it.prompt)+(it.retry?'<span class="retag">再试一次</span>':'')+'</div>'+(it.vis?'<div class="vis">'+it.vis+'</div>':'');
 }
 function nextBar(label){return '<div class="bottombar"><button class="big grn hidden" id="nx" data-act="next">'+label+'</button></div>';}
 function nextLabel(){return run.i+1>=run.q.length?'完成本关 🎉':'下一题 ➜';}
@@ -1690,10 +2061,11 @@ function nextQ(){run.i++;if(run.i>=run.q.length)finishLevel();else renderQ();}
 function renderQ(){
   const it=run.q[run.i];run.it=it;const pb=$('#pb');if(pb)pb.style.width=Math.round(100*run.i/run.q.length)+'%';
   const qa=$('#qa');Tts.stop();
-  const R={choice:rChoice,match:rMatch,order:rOrder,trace:rTrace,memory:rMemory,maze:rMaze,learn:rLearn,poem:rPoem,say:rSay,guided:rGuided,abc:rAbc,follow:rFollow}[it.kind];
+  const R={choice:rChoice,match:rMatch,order:rOrder,trace:rTrace,memory:rMemory,maze:rMaze,learn:rLearn,poem:rPoem,say:rSay,guided:rGuided,abc:rAbc,follow:rFollow,phon:rPhon}[it.kind];
   try{R(qa,it);}catch(e){console.error('render error',e);GEN_ERRORS.push('render:'+(e&&e.stack||e));qa.innerHTML='<div class="card center">哎呀,这题出了点小问题。<button class="big" data-act="next" style="margin-top:12px">跳过 ➜</button></div>';}
   app.scrollTop=0;
-  if(it.kind!=='learn'&&it.kind!=='poem'&&it.kind!=='say'&&it.kind!=='abc'&&it.kind!=='follow'&&it.kind!=='guided')speakAuto(it.say,it.lang);
+  if(it.kind!=='learn'&&it.kind!=='poem'&&it.kind!=='say'&&it.kind!=='abc'&&it.kind!=='follow'&&it.kind!=='guided'&&it.kind!=='phon'&&!it.phon)speakAuto(it.say,it.lang);
+  if(it.phon&&S.voice&&Tts.ok)later(()=>playPhon(it.phon,'sound'),350);
 }
 /* choice */
 function rChoice(qa,it){
@@ -1715,6 +2087,7 @@ function actAns(i){
     let extra=it.hint?'<small>小提示:'+esc(it.hint)+'</small>':'';
     if(it.wrong>=2){const k=it.opts.findIndex(x=>x.ok);if(k>=0)btns[k].classList.add('hint');extra='<small>看看闪闪发亮的那个~</small>';}
     fb(rnd(SOFT)+extra,'no');
+    if(it.phon&&Tts.ok)later(()=>playPhon(it.phon,'slow'),600);       // 答错:轻轻提示,再慢速读一遍
   }
 }
 /* guided:凑十法分步(拆 → 凑十 → 加) */
@@ -1756,6 +2129,45 @@ function actGans(i){
     if(st.w>=2){const k=st.opts.findIndex(x=>x.ok);if(k>=0)btns[k].classList.add('hint');extra='<small>看看闪闪发亮的那个~</small>';}
     fb(rnd(SOFT)+extra,'no');
   }
+}
+/* 自然拼读:发音卡 + 慢速拼读播放 */
+function phonSteps(u,mode){
+  const L=LTR_BY[u],P=phOf(u),slowRate=PHON_RATE.slow,rate=(mode==='slow'||S.slow)?slowRate:PHON_RATE.normal;
+  const nm={rate:rate};
+  if(mode==='full')return [
+    {t:L.say,pause:PHON_PAUSE.afterName,rate},                       // 先读字母名,停 1 秒
+    {t:P.tts,pause:PHON_PAUSE.afterSound,rate},{t:P.tts,pause:PHON_PAUSE.afterSound2,rate},   // 声音 ×2
+    {t:L.say+' says',pause:PHON_PAUSE.mid,rate},{t:P.tts,pause:PHON_PAUSE.mid,rate},{t:'as in '+L.w,pause:0,rate}];
+  return [{t:P.tts,pause:PHON_PAUSE.afterSound,rate},{t:P.tts,pause:PHON_PAUSE.afterSound2,rate},{t:'as in '+L.w,pause:0,rate}];
+}
+function playPhon(u,mode){
+  if(!u||!phOf(u))return false;
+  if(!Tts.ok){toast('这台设备没有朗读功能,请爸爸妈妈读给你听~');return false;}
+  const steps=mode==='sound'?phonSteps(u,'x').slice(0,2):phonSteps(u,mode==='slow'?'slow':'full'===mode?'full':'x');
+  const ok=Tts.seq(steps,{force:true});warnEn(ok);return ok;
+}
+function rPhon(qa,it){
+  const u=it.u,L=LTR_BY[u],P=phOf(u);it.followed=it.followed||false;
+  qa.innerHTML='<div class="qtop"><span class="chip en">英语</span></div><div class="prompt">'+esc(it.title)+(it.re?'<span class="retag">复习</span>':'')+'</div>'+
+   '<div class="phcard"><div class="phl">'+esc(L.u)+'<small>'+esc(L.l)+'</small></div><div class="phe">'+L.e+'</div><div class="phw">'+esc(L.w)+' · '+esc(L.zh)+'</div>'+
+   '<div class="phs">'+esc(P.sym)+'</div><div class="phc">轻轻读:'+esc(P.cn)+'</div></div>'+
+   '<div class="phbtns"><button class="pb tts" data-act="ph-play">🔊<br>听拼读</button><button class="pb tts" data-act="ph-again">🔁<br>再听一次</button>'+
+   '<button class="pb tts'+(S.slow?' on':'')+'" id="phslow" data-act="ph-slow">🐢<br>再慢一点</button><button class="pb" data-act="ph-follow">🗣<br>我来跟读</button></div>'+
+   '<div class="small center">字母名先读一遍,停一下,再读它的声音(轻轻读,不用大声)</div>'+
+   '<div class="small center ifnotts">这台设备没有朗读功能,请爸爸妈妈示范:'+esc(L.u)+' 的声音是 '+esc(P.sym)+'('+esc(P.cn)+')</div>'+
+   '<div class="fb" id="fb"></div><div class="bottombar"><button class="big grn" id="nx" data-act="next">我听懂啦 ➜</button></div>';
+  if(S.voice&&Tts.ok)later(()=>playPhon(u,'full'),400);
+}
+function actPhon(kind){
+  const it=run&&run.it;if(!it||it.kind!=='phon')return;
+  if(kind==='slow'){S.slow=!S.slow;saveState();const b=$('#phslow');if(b)b.classList.toggle('on',S.slow);fb(S.slow?'好的,变慢啦 🐢':'恢复正常速度','ok');Sfx.tap();playPhon(it.u,'full');return;}
+  if(kind==='follow'){
+    Sfx.tap();const P=phOf(it.u);fb('轮到你啦!轻轻读 '+esc(P.sym)+' 两遍~<small>'+esc(P.cn)+'</small>','ok');
+    if(Tts.ok)playPhon(it.u,'sound');
+    if(!it.followed){it.followed=true;later(()=>{addStar(1);},900);}
+    return;
+  }
+  playPhon(it.u,'full');
 }
 /* 字母卡 / 跟读 */
 function earText(x){return x.ph?'首音 '+x.ph:'';}
@@ -1834,7 +2246,7 @@ function actTile(v,el){
 const TR={tol:15,startTol:24,endTol:28};
 function rTrace(qa,it){
   const S0=STROKES[it.ch];it.si=0;it.fails=0;it.pts=[];it.drawing=false;
-  qa.innerHTML=qhead(it)+'<div class="tracewrap"><div class="stname" id="stn"></div><canvas id="tc" width="680" height="680"></canvas><div class="row2"><button data-act="tr-redo">🧽 重描这一笔</button><button data-act="tr-skip">⏭ 跳过这个字</button></div></div><div class="fb" id="fb"></div>'+nextBar(nextLabel());
+  qa.innerHTML=qhead(it)+'<div class="tracewrap"><div class="stname" id="stn"></div><canvas id="tc" width="680" height="680"></canvas><div class="row2"><button data-act="tr-redo">🧽 重描这一笔</button><button data-act="tr-skip">⏭ 跳过'+(it.num?'':'这个字')+'</button></div></div><div class="fb" id="fb"></div>'+nextBar(nextLabel());
   const cv=$('#tc');
   const pos=e=>{const r=cv.getBoundingClientRect();return [(e.clientX-r.left)/r.width*100,(e.clientY-r.top)/r.height*100];};
   cv.addEventListener('pointerdown',e=>{if(it.done)return;e.preventDefault();try{cv.setPointerCapture(e.pointerId);}catch(x){}it.drawing=true;it.pts=[pos(e)];traceDraw(it);});
@@ -1869,10 +2281,18 @@ function traceDraw(it){
     else {x.strokeStyle='#e6e6ee';x.lineWidth=14*k/6.8;}
     x.stroke();
   });
+  if(it.num&&!it.done&&S0.p[it.si])traceArrow(x,S0.p[it.si],k);
   if(!it.done&&S0.p[it.si]){const p=S0.p[it.si][0];x.fillStyle='#ff7a00';x.beginPath();x.arc(p[0]*k,p[1]*k,4.6*k,0,7);x.fill();x.fillStyle='#fff';x.font='bold '+(6.5*k)+'px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(String(it.si+1),p[0]*k,p[1]*k+0.4*k);
     const q=S0.p[it.si];const e2=q[q.length-1];x.fillStyle='#d94a4a';x.beginPath();x.arc(e2[0]*k,e2[1]*k,2.4*k,0,7);x.fill();}
   if(it.pts.length>1){x.strokeStyle='#2f7bff';x.lineWidth=7*k/6.8*1.1;x.beginPath();it.pts.forEach((p,j)=>{if(j)x.lineTo(p[0]*k,p[1]*k);else x.moveTo(p[0]*k,p[1]*k);});x.stroke();}
   const sn=$('#stn');if(sn)sn.textContent=it.done?'写好啦!':'第 '+(it.si+1)+' 笔:'+S0.n[it.si]+'(橙点开始,红点结束)';
+}
+function traceArrow(x,poly,k){            // 写数字:在当前这一笔上画一个小箭头,告诉孩子往哪个方向写
+  let tot=0;for(let i=0;i<poly.length-1;i++)tot+=dist(poly[i],poly[i+1]);let want=tot*0.4,acc=0;
+  for(let i=0;i<poly.length-1;i++){const a=poly[i],b=poly[i+1],L=dist(a,b);
+    if(acc+L>=want&&L>0){const f=(want-acc)/L,px=a[0]+(b[0]-a[0])*f,py=a[1]+(b[1]-a[1])*f,ang=Math.atan2(b[1]-a[1],b[0]-a[0]),r=4.2*k;
+      x.save();x.translate(px*k,py*k);x.rotate(ang);x.fillStyle='#ff7a00';x.beginPath();x.moveTo(r,0);x.lineTo(-r*0.8,-r*0.9);x.lineTo(-r*0.8,r*0.9);x.closePath();x.fill();x.restore();return;}
+    acc+=L;}
 }
 function traceCheck(it){
   const S0=STROKES[it.ch],g=S0.p[it.si],res=strokeJudge(g,it.pts);
@@ -2012,11 +2432,11 @@ function gateCheck(){
   if(v===gateAns){const cb=gateCb;gateCb=null;closeModal();if(cb)cb();}
   else{const m=$('#gmsg');if(m)m.textContent='不对哦,请家长再算一算';const i=$('#gin');if(i)i.value='';}
 }
-function aggStats(){const a={py:[0,0],zi:[0,0],poem:[0,0],math:[0,0],logic:[0,0],en:[0,0]};Object.keys(S.days).forEach(d=>{const r=S.days[d];Object.keys(a).forEach(k=>{a[k][0]+=(r.st[k]||[0,0])[0];a[k][1]+=(r.st[k]||[0,0])[1];});});return a;}
+function aggStats(){const a={py:[0,0],zi:[0,0],poem:[0,0],math:[0,0],logic:[0,0],en:[0,0],num:[0,0]};Object.keys(S.days).forEach(d=>{const r=S.days[d];Object.keys(a).forEach(k=>{a[k][0]+=(r.st[k]||[0,0])[0];a[k][1]+=(r.st[k]||[0,0])[1];});});return a;}
 function pct(a){return a[1]?Math.round(100*a[0]/a[1]):null;}
 function showParent(msg){
   const ag=aggStats();let bars='';
-  ['py','zi','poem','math','logic','en'].forEach(k=>{const p=pct(ag[k]);bars+='<div>'+SUBJ[k]+':'+(p===null?'还没有数据':p+'%('+ag[k][0]+'/'+ag[k][1]+')')+'</div><div class="bar"><i style="width:'+(p||0)+'%"></i></div>';});
+  ['math','en','num','logic','py','zi','poem'].forEach(k=>{const p=pct(ag[k]);if(p===null&&(k==='py'||k==='zi'||k==='poem'))return;bars+='<div>'+SUBJ[k]+':'+(p===null?'还没有数据':p+'%('+ag[k][0]+'/'+ag[k][1]+')')+'</div><div class="bar"><i style="width:'+(p||0)+'%"></i></div>';});
   const cd=contentDay(S.cur),sp=daySpec(cd);
   let rows='';Object.keys(S.days).map(Number).sort((a,b)=>a-b).forEach(d=>{
     const r=S.days[d];if(!r.done&&!r.lv&&!r.stars)return;let c=0,t=0;Object.keys(r.st).forEach(k=>{c+=r.st[k][0];t+=r.st[k][1];});
@@ -2032,7 +2452,7 @@ function showParent(msg){
    '<div class="card pcard"><h3>📅 每天记录</h3><table class="tbl"><tr><th>天</th><th>状态</th><th>星星</th><th>正确率</th><th>小任务</th></tr>'+rows+'</table></div>'+
    '<div class="card pcard"><h3>⚙️ 设置</h3>起始难度<div class="seg">'+segD+'</div><div class="small">轻松:选项更少、数字更小;挑战:更多选项、更大数字。</div><div style="height:8px"></div>每天关卡数<div class="seg">'+segL+'</div><div style="height:8px"></div>'+
    '<button class="pbtn" data-act="set-sound">'+(S.sound?'🔔 音效:开':'🔕 音效:关')+'</button><button class="pbtn tts" data-act="set-voice">'+(S.voice?'🗣️ 自动朗读题目:开':'🤐 自动朗读题目:关')+'</button><button class="pbtn tts" data-act="set-ear">'+(S.ear?'👂 自然拼读小耳朵:开(字母卡显示首音)':'👂 自然拼读小耳朵:关')+'</button>'+
-   '<div class="small ifnotts">这台设备的浏览器不支持朗读。</div><div class="small tts">朗读用的是手机自带的中文语音;没声音时,请在手机设置里安装/开启中文语音(如「文字转语音」)。字母朗读需要英文(美式)语音,没有的话请在系统「文字转语音」里添加;点 🔊 按钮不受「自动朗读」开关影响。</div><div style="height:8px"></div>'+
+   '<div class="small ifnotts">这台设备的浏览器不支持朗读。</div><div class="small tts">朗读用的是手机自带的中文语音;没声音时,请在手机设置里安装/开启中文语音(如「文字转语音」)。字母朗读需要英文(美式)语音,没有的话请在系统「文字转语音」里添加。自然拼读是用手机的英文语音读单个声音(如 buh、kuh),可能不够标准:如果觉得手机读音不准,可家长示范;卡片上的 🐢「再慢一点」会把速度调得更慢;点 🔊 按钮不受「自动朗读」开关影响。</div><div style="height:8px"></div>'+
    '从第几天开始<select id="startday">'+opt+'</select><button class="pbtn" data-act="set-day">应用</button><div class="small">选好后,孩子就从那一天开始(已学完的记录保留)。</div></div>'+
    '<div class="card pcard"><h3>💾 备份与转移</h3><div class="small">换手机或清理浏览器前,复制下面的文字保存;到新设备里粘贴导入。</div><textarea id="exp" readonly>'+esc(JSON.stringify(S))+'</textarea><button class="pbtn" data-act="copy">📋 复制</button>'+
    '<div class="small" style="margin-top:8px">导入:把备份文字粘贴到这里</div><textarea id="imp" placeholder="在这里粘贴"></textarea><button class="pbtn" data-act="import">📥 导入</button><div class="msg" id="pmsg"></div>'+
@@ -2078,6 +2498,10 @@ function onClick(e){
     case 'ear':{if(!Tts.ok){toast('这台设备没有朗读功能');break;}Sfx.tap();warnEn(Tts.say(t.dataset.t,'en',true));break;}
     case 'f-say':case 'f-again':actFollow('say');break;
     case 'f-next':actFollow('next');break;
+    case 'phplay':playPhon(t.dataset.u,'sound');break;
+    case 'ph-play':case 'ph-again':actPhon('play');break;
+    case 'ph-slow':actPhon('slow');break;
+    case 'ph-follow':actPhon('follow');break;
     case 'ans':actAns(parseInt(t.dataset.i,10));break;
     case 'ml':actMatch('l',parseInt(t.dataset.id,10));break;
     case 'mr':actMatch('r',parseInt(t.dataset.id,10));break;
