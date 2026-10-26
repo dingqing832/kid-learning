@@ -193,6 +193,49 @@ textarea{min-height:110px;font-size:14px;font-family:monospace}
 @media (max-height:700px){.bigemo{font-size:70px}.prompt{font-size:26px}.pet{font-size:80px;min-height:100px}}
 .bottombar:has(#nx.hidden){display:none}
 
+/* ===== v2: 凑十 / 十加几 / 整十数 图示 ===== */
+.tf i.g{background:#19b36b}.tf i.q{background:#fff3b0;border-style:dashed;animation:pulse 1.1s infinite}
+.dot.d3{background:var(--blu)}.dot.hol{background:#fff}
+.loose{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;max-width:300px;margin:2px auto}
+.loose .dot{width:30px;height:30px}
+.cv{display:flex;flex-direction:column;align-items:center;gap:0;margin:2px auto}
+.cv .tf{grid-template-columns:repeat(5,38px);gap:3px}.cv .tf i{width:38px;height:38px;border-radius:8px}
+.cv .pl{font-style:normal;font-size:30px;line-height:1;margin:2px 0;color:var(--org)}
+.cvcap{font-size:19px;font-weight:900;color:#0b8a4a;margin-top:2px}
+.cv.tv{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:8px}
+.rods{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;align-items:flex-end;max-width:150px}
+.rods small{flex-basis:100%;text-align:center;font-size:15px;font-weight:800}
+.rod{display:inline-flex;align-items:center;justify-content:center;width:26px;height:54px;border:3px solid var(--line);border-radius:6px;font-style:normal;font-size:12px;font-weight:900;color:#fff;background:var(--blu)}
+.rod.r2{background:var(--pnk)}.rod.qq{background:#fff3b0;color:var(--org);border-style:dashed;font-size:22px}
+.tens .one.o2{background:var(--pnk)}
+/* guided (凑十法分步) */
+.gwork{min-height:34px;text-align:center;font-size:26px;font-weight:900;color:#4a2fb0}.gwork div{line-height:1.25}
+.gdots{text-align:center;font-size:18px;font-weight:800;margin:2px 0}.gdots b{display:inline-block;min-width:30px;height:30px;line-height:24px;border:3px solid var(--line);border-radius:50%;background:#fff;margin:0 3px}.gdots b.on{background:var(--yel)}.gdots b.dn{background:#b6f5c9}
+.gq{font-size:27px;font-weight:900;text-align:center;margin:4px 0}
+.gstep .opt{min-height:70px;font-size:36px}
+.gres{font-size:40px;font-weight:900;color:#0b8a4a;text-align:center}
+/* ===== v2: 英语字母 ===== */
+.chip.en{background:#ffe08a}
+.ltr{font-weight:900;color:#4a2fb0}
+.opt.opt-ltr{font-size:54px}.opt.opt-ltr.opt-cell{font-size:34px;font-weight:900;color:#4a2fb0;min-height:0}
+.opts.c4 .opt.opt-ltr.opt-cell{font-size:28px}
+.ltrbig{font-size:72px;font-weight:900;color:#4a2fb0;line-height:1.1}
+.seq.lseq b{font-size:38px}
+.acard{width:100%;min-height:150px;padding:8px;border-radius:22px;background:#fff;display:flex;align-items:center;gap:6px;text-align:left}
+.acard .aletter{font-size:62px;font-weight:900;color:#4a2fb0;line-height:1;min-width:128px;text-align:center}
+.acard .aletter small{font-size:62px;color:var(--org);margin-left:6px}
+.acard .aemo{font-size:52px}.acard .aword{font-size:22px;font-weight:800;line-height:1.2}
+.acard .aword small{display:block;font-size:16px;opacity:.8}
+.acard.tap{animation:bounce .5s}
+.alist{display:grid;gap:10px;margin:8px 0}
+.arow{display:flex;gap:8px;align-items:stretch}.arow .acard{flex:1;min-height:104px}
+.aear{min-width:64px;font-size:26px;padding:2px 6px}
+.fcard{background:#fff;border:4px solid var(--line);border-radius:26px;padding:10px;text-align:center;box-shadow:0 5px 0 var(--line);margin:8px 0}
+.fcard .fl{font-size:104px;font-weight:900;color:#4a2fb0;line-height:1.05}.fcard .fl small{font-size:104px;color:var(--org);margin-left:10px}
+.fcard .fe{font-size:56px}.fcard .fw{font-size:22px;font-weight:800}
+.frow{display:flex;gap:10px}.frow button{flex:1;font-size:21px;font-weight:800;min-height:64px}
+.fbtn.sb{background:#e6f0ff}
+
 </style>
 </head>
 <body>
@@ -354,37 +397,86 @@ const HABITS = [
  '今晚按时洗漱上床,睡个好觉','自己背上书包,走到门口再放下','给远方的亲人打个电话或视频问好','练习说:「我叫……,我今年……岁,我喜欢……」','把明天上学要带的东西都摆好','和家人聊聊:这个月你最喜欢学什么?'
 ];
 const TIPS = [
- '今天只要问一句:「你学会了哪几个字母?教教我吧!」让孩子当小老师,2 分钟就够。',
- '让孩子指一指家里有 3 个、5 个的东西(比如 3 把椅子),你只需要说「对,真棒」。',
- '睡前让孩子用手指在你背上「写」一个今天学的字(一、二、三),猜猜是什么字。',
- '饭后问:「今天哪个字最好玩?」听他说一说就好,不用纠正。',
- '拿 5 个小东西(纽扣、豆子),让孩子分成两堆,说说「5 分成 2 和 3」。',
+ '今天认识字母 A B C:让孩子指着家里的东西说「A 是 apple」,你跟着读一遍,2 分钟就够。',
+ '数数小游戏:让孩子数一数家里有几把椅子、几个杯子(10 以内),你只说「对,真棒」。',
+ '拿 10 颗豆子,先摆 3 颗,问「再加几颗正好是 10?」,摆给孩子看,让他自己数。',
+ '凑十好朋友:你说 7,孩子答 3(和 7 凑成 10)。玩 3 轮,答不出来就看手指,不批评。',
+ '今天的字母要分清大写和小写:拿 A 和 a 的卡片,让孩子找「哪个是大 A」。',
  '今天是复习日:让孩子带你玩一遍他最喜欢的小关卡,你当学生。',
  '今天是挑战日:做完后给孩子一个击掌,庆祝他坚持下来。',
- '散步时指一样东西问:「它的名字第一个音是什么?」(如「苹果」是 p)。',
+ '十加几:先摆满一排 10 颗豆子,再放 3 颗,问「现在有几颗?」(13)。换成 5、7 再来几次。',
+ '睡前问一句:「10 加 6 等于几?」答出来就是今天最大的收获,不用多问。',
  '读完一遍「春晓」给孩子听,再让他试着接最后一个字,2 分钟即可。',
- '让孩子用 10 个小东西摆出「几和几合成 10」,你拍照留念就好。',
- '厨房里让孩子帮你数 10 以内的物品(鸡蛋、勺子),你说结果,他来验证。',
- '问孩子:「这个字和哪个字长得像?」不用纠错,听他的想法。',
+ '用手指玩十加几:双手十指代表 10,另一个人伸出几根,合起来是十几?',
+ '今天认识 Y 和 Z 啦!26 个字母都见过一遍了,和孩子一起唱一遍字母歌。',
+ '易混字母 b 和 d:让孩子用手比划,b 是「先竖后圈在右边」,d 是「圈在左边」,看谁比得对。',
  '今天是复习日:让孩子给你出 3 道题,答错也没关系,开心最重要。',
  '今天是挑战日:陪他玩一次迷宫或翻牌,你可以故意输给他一次。',
- '用「我看到了……」造句:让孩子说一句看图说话,你只需要点头夸夸。',
- '玩「反义词接龙」:你说「大」,他说「小」,来回 5 次。',
- '把 10 颗糖/豆豆分一分,问他:「吃掉 3 颗还剩几颗?」让他摆一摆。',
- '凑十小游戏:你出一个数,孩子说「和它凑成 10 的数」,玩 3 轮。',
- '出门找规律:看到红绿灯、台阶、瓷砖,问「接下来是什么?」。',
- '今天认识整点:看墙上的钟问「几点了?」,指一指整点即可。',
+ '9 加几:先问「9 再加几就满 10?」。让孩子在十格框里自己摆,别急着告诉答案。',
+ '8 加几:把 8 颗豆子放一排,再拿 5 颗,先拿 2 颗凑满 10,再把剩下的 3 颗加上。',
+ '「小耳朵」找字母:出门时找招牌上的 i 或 j,找到就轻声读一读。',
+ '今天认识 a 和 e:a 像一个圆加一竖,e 的中间有一横,让孩子用手指在桌上写一写。',
+ '20 以内加法:让孩子说说「是不是先凑成 10 呢?」,他会解释就说明真的学会了。',
  '今天是复习日:不必追求全对,请孩子讲讲最喜欢的一关。',
  '今天是挑战日:完成后一起看看贴纸册,聊聊哪张最喜欢。',
- '拿两个字母卡片,让孩子找「an」和「en」,找对了就击掌。',
- '读绘本时,孩子指到哪个字,你就轻声读给他听,不需要纠正。',
- '数数接力:你数 1、2,他数 3、4,一直数到 20 或 50。',
- '请孩子把今天学的字写(画)在纸上,多丑都可以,贴在冰箱上。',
- '问孩子:「时钟上现在是几点?」睡前再问一次,看看变了没有。',
- '今天是复习日:放松玩,让孩子当小老师教你拼音。',
+ '整十数:用 10 根筷子一捆,3 捆加 2 捆是几捆?几个十就是几十,让孩子摆一摆。',
+ '整十数加法:10 + 20 = 30,40 + 30 = 70。孩子说「几个十加几个十」就对了。',
+ '20 + 3 = 23:一捆十根筷子加 3 根散的,问「现在有多少根?」',
+ '购物游戏:妈妈说「买 20 元的本子和 30 元的玩具」,孩子口算一共多少元(整十数)。',
+ '今天是复习日:放松玩,让孩子当小老师教你认字母和算加法。',
+ '今天是挑战日:让孩子随便挑一个字母,说说它的大小写和关键词(如 B-bear)。',
  '今天是毕业复习:孩子玩你就在旁边夸夸他的进步,不挑错。',
  '毕业啦!和孩子一起翻翻贴纸册,说一句:「这个月你真努力!」'
 ];
+
+/* ================= 英语:26 个字母 =================
+ * u 大写 / l 小写 / w 关键词 / zh 中文 / e 图 / say 字母名(用于 TTS 的拼写,尽量用英语单词保证读成字母名)
+ * ipa 字母名音标(供家长参考) / ph 自然拼读首音(可选"小耳朵") / ini 关键词是否以该字母开头 */
+const LETTERS = [
+ {u:'A',l:'a',w:'apple',zh:'苹果',e:'🍎',say:'ay',ipa:'/eɪ/',ph:'/æ/'},
+ {u:'B',l:'b',w:'bear',zh:'熊',e:'🐻',say:'bee',ipa:'/biː/',ph:'/b/'},
+ {u:'C',l:'c',w:'cat',zh:'猫',e:'🐱',say:'see',ipa:'/siː/',ph:'/k/'},
+ {u:'D',l:'d',w:'dog',zh:'狗',e:'🐶',say:'dee',ipa:'/diː/',ph:'/d/'},
+ {u:'E',l:'e',w:'egg',zh:'鸡蛋',e:'🥚',say:'ee',ipa:'/iː/',ph:'/e/'},
+ {u:'F',l:'f',w:'fish',zh:'鱼',e:'🐟',say:'eff',ipa:'/ef/',ph:'/f/'},
+ {u:'G',l:'g',w:'goat',zh:'山羊',e:'🐐',say:'jee',ipa:'/dʒiː/',ph:'/g/'},
+ {u:'H',l:'h',w:'horse',zh:'马',e:'🐴',say:'aitch',ipa:'/eɪtʃ/',ph:'/h/'},
+ {u:'I',l:'i',w:'insect',zh:'昆虫',e:'🐛',say:'eye',ipa:'/aɪ/',ph:'/ɪ/'},
+ {u:'J',l:'j',w:'jet',zh:'飞机',e:'✈️',say:'jay',ipa:'/dʒeɪ/',ph:'/dʒ/'},
+ {u:'K',l:'k',w:'key',zh:'钥匙',e:'🔑',say:'kay',ipa:'/keɪ/',ph:'/k/'},
+ {u:'L',l:'l',w:'lion',zh:'狮子',e:'🦁',say:'el',ipa:'/el/',ph:'/l/'},
+ {u:'M',l:'m',w:'monkey',zh:'猴子',e:'🐵',say:'em',ipa:'/em/',ph:'/m/'},
+ {u:'N',l:'n',w:'nose',zh:'鼻子',e:'👃',say:'en',ipa:'/en/',ph:'/n/'},
+ {u:'O',l:'o',w:'orange',zh:'橙子',e:'🍊',say:'oh',ipa:'/əʊ/',ph:'/ɒ/'},
+ {u:'P',l:'p',w:'pig',zh:'小猪',e:'🐷',say:'pee',ipa:'/piː/',ph:'/p/'},
+ {u:'Q',l:'q',w:'queen',zh:'女王',e:'👸',say:'cue',ipa:'/kjuː/',ph:'/kw/'},
+ {u:'R',l:'r',w:'rabbit',zh:'兔子',e:'🐰',say:'are',ipa:'/ɑːr/',ph:'/r/'},
+ {u:'S',l:'s',w:'sun',zh:'太阳',e:'☀️',say:'ess',ipa:'/es/',ph:'/s/'},
+ {u:'T',l:'t',w:'tiger',zh:'老虎',e:'🐯',say:'tee',ipa:'/tiː/',ph:'/t/'},
+ {u:'U',l:'u',w:'umbrella',zh:'雨伞',e:'☂️',say:'you',ipa:'/juː/',ph:'/ʌ/'},
+ {u:'V',l:'v',w:'violin',zh:'小提琴',e:'🎻',say:'vee',ipa:'/viː/',ph:'/v/'},
+ {u:'W',l:'w',w:'water',zh:'水',e:'💧',say:'double you',ipa:'/ˈdʌbljuː/',ph:'/w/'},
+ {u:'X',l:'x',w:'fox',zh:'狐狸',e:'🦊',say:'ex',ipa:'/eks/',ph:'/ks/',ini:false,note:'x 在单词末尾,读 /ks/'},
+ {u:'Y',l:'y',w:'yellow',zh:'黄色',e:'💛',say:'why',ipa:'/waɪ/',ph:'/j/'},
+ {u:'Z',l:'z',w:'zebra',zh:'斑马',e:'🦓',say:'zee',ipa:'/ziː/',ph:'/z/'}
+];
+/* 每天新认识的字母(第一轮:8 天 × 3 + 1 天 × 2 = 26 个)。易混的 b/d、p/q、m/n、i/j 分在不同的天。 */
+const LTR_NEW = {1:'ABC',2:'DEF',3:'GHI',4:'JKL',5:'MOP',8:'NRS',9:'QTU',10:'VWX',11:'YZ'};
+/* 第二轮:易混字母再认识(从第 12 天开始) */
+const LTR_RE = {12:'BD',15:'PQ',16:'MN',17:'IJ',18:'AE',19:'UVW',22:'BDPQ',23:'MNH',24:'EFMW',25:'IJLT',26:'AEOC'};
+const LTR_TIPS = {
+ BD:'b:先写一条竖线,圈圈在右边(像小肚子朝右);d:圈圈在左边,像一个小球后面跟着一根棍子。',
+ PQ:'p:竖线在左,圈圈在右上,尾巴向下;q:圈圈在左,竖线在右,尾巴向下。',
+ MN:'m 有两个小门洞(两条腿加一条);n 只有一个小门洞。',
+ IJ:'i 和 j 头上都有一个小点,j 的尾巴会向左弯一弯。',
+ AE:'a 像一个圆圈加一条小竖线;e 的中间有一条横线。',
+ UVW:'u 像一个小碗(圆底);v 是尖尖的;w 像两个 v 连在一起。',
+ BDPQ:'b d p q 是四个长得像的小兄弟,看看圈圈在哪一边、竖线往上还是往下。',
+ MNH:'m、n、h 都有小拱门:m 两个,n 一个,h 高高的竖线加一个拱门。',
+ EFMW:'大写:E 有三条横线,F 只有两条;M 的中间尖尖朝下,W 的中间尖尖朝上。',
+ IJLT:'i 和 j 有小点;l 是一条直线;t 的竖线上有一道短横。',
+ AEOC:'a e o c 都有圆圈:o 是完整的圈,c 有个缺口,e 中间有横线,a 带竖线。'
+};
 
 /* ================= 工具 ================= */
 const $ = s => document.querySelector(s);
@@ -421,18 +513,18 @@ function numSvgDots(n,color){return Array.from({length:n},()=>'<span class="dot"
 
 /* ================= 题目生成 ================= */
 const GEN_ERRORS=[];
-const SUBJ={py:'拼音',zi:'识字',poem:'古诗',math:'数学',logic:'逻辑',fun:'小游戏'};
+const SUBJ={py:'拼音',zi:'识字',poem:'古诗',math:'数学',logic:'逻辑',en:'英语',fun:'小游戏'};
 const COLORS=['#ff5a5f','#2f7bff','#19b36b','#ff9f1c','#8e5bff','#ff5fa2'];
 
 function mkChoice(c,o){
   const R=c.R, seen=new Set([o.correct.k]); let wr=[];
-  for(const w of R.shuffle(o.wrongs)){ if(!seen.has(w.k)){seen.add(w.k);wr.push(w);} }
+  for(const w of (o.keepOrder?o.wrongs:R.shuffle(o.wrongs))){ if(!seen.has(w.k)){seen.add(w.k);wr.push(w);} }
   const nopt=Math.max(2,Math.min(o.nopt||c.nopt, wr.length+1));
   wr=wr.slice(0,nopt-1);
   const opts=R.shuffle([Object.assign({ok:true},o.correct)].concat(wr.map(w=>Object.assign({ok:false},w))));
   let cols=o.cols; if(!cols) cols=opts.length===2?2:(opts.length===3?3:2);
   return {kind:'choice',subject:o.subject,topic:o.topic||'',prompt:o.prompt,say:(o.say!==undefined?o.say:plainSay(o.prompt)),vis:o.vis||'',
-    opts,cols,hint:o.hint||'',meta:o.meta||null,key:o.key||(o.subject+'|'+o.prompt+'|'+o.correct.k),dupOK:!!o.dupOK,optCls:o.optCls||''};
+    opts,cols,hint:o.hint||'',meta:o.meta||null,key:o.key||(o.subject+'|'+o.prompt+'|'+o.correct.k),dupOK:!!o.dupOK,optCls:o.optCls||'',lang:o.lang||''};
 }
 function numWrongs(ans,lo,hi,k,R){
   const cand=[];
@@ -753,18 +845,11 @@ function gAdd(c){
     vis:'<div class="addv"><div>'+emoGrid(em,a,5)+'</div><i>+</i><div>'+emoGrid(em,b,5)+'</div></div><div class="eq">'+a+' + '+b+' = <b class="q">?</b></div>',
     hint:'把两堆合起来,数一数~',meta:{type:'add',a,b,ans:s},key:'ad|'+a+'+'+b}));
 }
-function gSub(c){
-  const R=c.R,cap=c.e<16?5:10,a=R.int(2,cap),b=R.int(1,a-1),em=R.pick(OBJ_EMO),ans=a-b;
-  return mkChoice(c,numOpts(c,ans,0,cap+2,{subject:'math',topic:'sub',prompt:a+' − '+b+' = ?',say:a+'减'+b+'等于几?',
-    vis:emoGrid(em,a,5)+'<div class="eq">'+a+' − '+b+' = <b class="q">?</b></div>',hint:'一共 '+a+' 个,拿走 '+b+' 个,还剩几个?',meta:{type:'sub',a,b,ans},key:'sb|'+a+'-'+b}));
-}
 function seqMax(e){return e<12?10:(e<22?20:100);}
 function gSeq(c){
-  const R=c.R,mx=seqMax(c.e),v=R.int(1,3);
+  const R=c.R,mx=seqMax(c.e),v=R.int(1,2);
   if(v===1){const n=R.int(1,mx-1);return mkChoice(c,numOpts(c,n+1,0,mx+2,{subject:'math',topic:'next',prompt:n+' 的后面是几?',say:n+'的后面是几?',vis:'<div class="seq"><b>'+n+'</b><b class="q">?</b></div>',
       hint:'数数歌:'+n+' 后面接着数~',meta:{type:'next',n,ans:n+1},key:'nx|'+n}));}
-  if(v===2){const n=R.int(2,mx);return mkChoice(c,numOpts(c,n-1,0,mx+2,{subject:'math',topic:'prev',prompt:n+' 的前面是几?',say:n+'的前面是几?',vis:'<div class="seq"><b class="q">?</b><b>'+n+'</b></div>',
-      hint:'倒着数一个~',meta:{type:'prev',n,ans:n-1},key:'pv|'+n}));}
   const n=R.int(1,mx-2);return mkChoice(c,numOpts(c,n+1,0,mx+2,{subject:'math',topic:'between',prompt:n+' 和 '+(n+2)+' 中间是几?',say:n+'和'+(n+2)+'中间是几?',
     vis:'<div class="seq"><b>'+n+'</b><b class="q">?</b><b>'+(n+2)+'</b></div>',hint:'从 '+n+' 往后数一个~',meta:{type:'between',n,ans:n+1},key:'bt|'+n}));
 }
@@ -778,11 +863,11 @@ function gOrder(c){
 function gPattern(c){
   const R=c.R,e=c.e;
   if(e>=16&&R.chance(.45)){ // 数字规律
-    const step=R.pick([1,2,2,3,5,10]),desc=R.chance(.25),start=desc?R.int(step*4,50):R.int(0,10);
+    const step=R.pick([1,2,2,3,5,10]),desc=false,start=R.int(0,10);
     const sq=[0,1,2,3].map(i=>start+(desc?-1:1)*step*i),ans=start+(desc?-1:1)*step*4;
     if(ans<0||ans>100) return gPattern(c);
     return mkChoice(c,numOpts(c,ans,Math.max(0,ans-9),ans+9,{subject:'math',topic:'numpat',prompt:'找规律,下一个数是几?',say:'找规律,下一个数是几?',
-      vis:'<div class="seq">'+sq.map(x=>'<b>'+x+'</b>').join('')+'<b class="q">?</b></div>',hint:'看看每次增加(或减少)多少~',
+      vis:'<div class="seq">'+sq.map(x=>'<b>'+x+'</b>').join('')+'<b class="q">?</b></div>',hint:'看看每次增加多少~',
       meta:{type:'numpat',seq:sq,ans},key:'np|'+sq.join(',')}));
   }
   const pats=e<10?['AB','AAB']:(e<18?['AB','AAB','ABB','ABC']:['AAB','ABB','ABC','AABB','ABAC']);
@@ -796,13 +881,6 @@ function gPattern(c){
     vis:'<div class="seq pat">'+seq.map(x=>'<b>'+x+'</b>').join('')+'<b class="q">?</b></div>',
     correct:{k:ans,h:'<span class="emo">'+ans+'</span>'},wrongs:Array.from(new Set(kinds.map(k=>mp[k]).filter(x=>x!==ans).concat(wr))).map(x=>({k:x,h:'<span class="emo">'+x+'</span>'})),
     cols:2,optCls:'opt-emo',hint:'看看一组一组是怎么重复的~',meta:{type:'pattern',pat:p,seq,ans},key:'pt|'+seq.join('')});
-}
-function gTen(c){
-  const R=c.R,a=R.int(1,9),b=10-a;
-  if(R.chance(.5)) return mkChoice(c,numOpts(c,b,0,10,{subject:'math',topic:'ten',prompt:a+' + ? = 10',say:a+'加几等于10?',vis:tenFrame(a)+'<div class="eq">'+a+' + <b class="q">?</b> = 10</div>',
-    hint:'格子里还差几个才满 10 个?',meta:{type:'ten',a,ans:b},key:'tn|'+a}));
-  return mkChoice(c,numOpts(c,b,0,10,{subject:'math',topic:'ten2',prompt:'和 '+a+' 凑成 10 的数是几?',say:'和'+a+'凑成10的数是几?',vis:tenFrame(a),
-    hint:'数数空格有几个~',meta:{type:'ten',a,ans:b},key:'tn2|'+a}));
 }
 function gClock(c){
   const R=c.R,h=R.int(1,12);
@@ -824,23 +902,6 @@ function gHundred(c){
   const vis='<div class="tens">'+Array.from({length:t},()=>'<i class="bar"></i>').join('')+Array.from({length:o},()=>'<i class="one"></i>').join('')+'</div>';
   return mkChoice(c,numOpts(c,n,10,99,{subject:'math',topic:'place',prompt:t+' 个十和 '+o+' 个一,合起来是几?',say:t+'个十和'+o+'个一,合起来是几?',vis,
     hint:'长条是十,小方块是一~',meta:{type:'place',t,o,ans:n},key:'h3|'+n}));
-}
-function gMixed(c){
-  const R=c.R,s=R.int(3,10),a=R.int(1,s-1),b=s-a;
-  const v=R.int(1,3);
-  if(v===1) return mkChoice(c,numOpts(c,a,0,10,{subject:'math',topic:'mix',prompt:'? + '+b+' = '+s,say:'几加'+b+'等于'+s+'?',vis:'<div class="eq"><b class="q">?</b> + '+b+' = '+s+'</div>',
-    hint:'想一想:'+b+' 加几等于 '+s+'?',meta:{type:'mix1',b,s,ans:a},key:'mx1|'+b+','+s}));
-  if(v===2) return mkChoice(c,numOpts(c,a,0,10,{subject:'math',topic:'mix',prompt:s+' − ? = '+b,say:s+'减几等于'+b+'?',vis:'<div class="eq">'+s+' − <b class="q">?</b> = '+b+'</div>',
-    hint:'从 '+s+' 里拿走几个,剩下 '+b+'?',meta:{type:'mix2',s,b,ans:a},key:'mx2|'+s+','+b}));
-  return mkChoice(c,numOpts(c,b,0,10,{subject:'math',topic:'mix',prompt:s+' − '+a+' = ?',say:s+'减'+a+'等于几?',vis:'<div class="eq">'+s+' − '+a+' = <b class="q">?</b></div>',
-    hint:'倒着数'+a+'个~',meta:{type:'sub',a:s,b:a,ans:b},key:'mx3|'+s+','+a}));
-}
-function gWord(c){
-  const R=c.R,v=R.int(1,4);
-  if(v===1||v===4){const s=R.int(3,10),a=R.int(1,s-1),b=s-a;const t=v===1?'盘子里有'+a+'个苹果,又放进'+b+'个,一共有几个?':'草地上有'+a+'只兔子,又跑来'+b+'只,一共有几只?';
-    return mkChoice(c,numOpts(c,s,0,12,{subject:'math',topic:'word',prompt:t,say:t,vis:'<div class="bigemo">'+(v===1?'🍎':'🐰')+'</div>',hint:'一共,就是合起来~',meta:{type:'word-add',a,b,ans:s},key:'w|'+t}));}
-  const a=R.int(3,10),b=R.int(1,a-1),t=v===2?'树上有'+a+'只小鸟,飞走了'+b+'只,还剩几只?':'我有'+a+'颗糖,吃了'+b+'颗,还剩几颗?';
-  return mkChoice(c,numOpts(c,a-b,0,12,{subject:'math',topic:'word',prompt:t,say:t,vis:'<div class="bigemo">'+(v===2?'🐦':'🍬')+'</div>',hint:'飞走(吃了),就是拿走~',meta:{type:'word-sub',a,b,ans:a-b},key:'w|'+t}));
 }
 function gPosition(c){
   const R=c.R,vert=R.chance(.4),[x,y]=R.sample(POS_EMO,2),xFirst=R.chance(.5);
@@ -895,25 +956,354 @@ function gMaze(c){
   return {kind:'maze',subject:'logic',w:n,h:n,cells:genMaze(n,n,R),prompt:'帮小老鼠找到奶酪',say:'帮小老鼠找到奶酪。点方向键,或者点旁边的格子',key:'mz|'+n+'|'+c.R.int(0,99999)};
 }
 
+/* ================= 数学:加法专项(凑十 / 十加几 / 凑十法进位加 / 20以内 / 整十数) =================
+ * 全部是加法,没有减法。每道题的答案都由 meta 里的数字直接算出,tests/validate.js 会逐题校验。 */
+function uniqInts(arr,lo,hi,ex){const s=[];arr.forEach(v=>{if(Number.isInteger(v)&&v>=lo&&v<=hi&&v!==ex&&!s.includes(v))s.push(v);});return s;}
+function numChoice(c,ans,cands,lo,hi,o){
+  const w=uniqInts(cands,lo,hi,ans),st=(o&&o.step)||1;
+  for(let d=1;d<=10&&w.length<3;d++){[ans-d*st,ans+d*st].forEach(v=>{if(v>=lo&&v<=hi&&v!==ans&&!w.includes(v))w.push(v);});}
+  return mkChoice(c,Object.assign({correct:{k:String(ans),h:String(ans)},wrongs:w.map(v=>({k:String(v),h:String(v)}))},o));
+}
+function frameCells(red,green,hl){const a=[];for(let i=0;i<10;i++)a.push(i<red?'on':(i<red+green?'g':(i<red+green+(hl||0)?'q':'off')));return a;}
+function frameHtml(cells){return '<div class="tf">'+cells.map(k=>'<i class="'+k+'"></i>').join('')+'</div>';}
+function looseDots(n,hollow){return '<div class="loose">'+Array.from({length:n},()=>'<span class="dot d3'+(hollow?' hol':'')+'"></span>').join('')+'</div>';}
+function eqHtml(s){return '<div class="eq">'+s+'</div>';}
+/* 凑十法图示:phase0 初始;phase1 十格框里空格高亮;phase2 已凑满10,剩下 y 个 */
+function carryVis(base,other,phase){
+  const x=10-base,y=other-x;let cells,loose,cap='';
+  if(phase===0){cells=frameCells(base,0,0);loose=looseDots(other);}
+  else if(phase===1){cells=frameCells(base,0,x);loose=looseDots(other);}
+  else{cells=frameCells(base,x,0);loose=looseDots(y);cap='<div class="cvcap">凑成 10 啦!还有 '+y+' 个在外面</div>';}
+  return '<div class="cv">'+frameHtml(cells)+'<i class="pl">+</i>'+loose+'</div>'+cap;
+}
+function tenPlusVis(b,swap,hollow){
+  const f=frameHtml(frameCells(10,0,0)),l=looseDots(b,hollow);
+  return '<div class="cv">'+(swap?l+'<i class="pl">+</i>'+f:f+'<i class="pl">+</i>'+l)+'</div>';
+}
+function rods(n,cls){return '<div class="rods">'+Array.from({length:n},()=>'<i class="rod '+cls+'">10</i>').join('')+'<small>'+n+' 个十</small></div>';}
+function tensVis(a,b){return '<div class="cv tv">'+rods(a/10,'r1')+'<i class="pl">+</i>'+rods(b/10,'r2')+'</div>';}
+function tensOnesVis(t,o){return '<div class="tens">'+Array.from({length:t},()=>'<i class="bar"></i>').join('')+Array.from({length:o},()=>'<i class="one"></i>').join('')+'</div>';}
+function wvis(c){return c.diff<2;} // 挑战难度少给一点图示
+
+/* ---------- 凑十:几和几凑成 10 ---------- */
+function gMake10(c){
+  const R=c.R,v=R.wpick([['f1',3],['f2',2.2],['dots',1.6],['pair',c.cday>=5?1.6:0.4],['match',c.cday>=5?1.2:0]],x=>x[1])[0];
+  if(v==='match'){
+    const groups=R.sample([[1,9],[2,8],[3,7],[4,6],[5]],3),as=groups.map(g=>R.pick(g));
+    return {kind:'match',subject:'math',topic:'make10m',prompt:'连一连:合起来是 10 的好朋友',say:'连一连,合起来是10的好朋友',
+      pairs:as.map((a,i)=>({id:i,l:'<span class="pyt" style="color:#d6262b">'+a+'</span>',r:'<span class="pyt">'+(10-a)+'</span>'})),
+      key:'m10m|'+as.slice().sort((x,y)=>x-y).join(','),meta:{type:'tenmatch',pairs:as.map(a=>[a,10-a])}};
+  }
+  if(v==='pair'){
+    const a=R.int(1,5),b=10-a,key=(x,y)=>Math.min(x,y)+'和'+Math.max(x,y);
+    const raw=[[a,b+1],[a+1,b],[a,b-1],[a-1,b],[a+1,b+1],[a-1,b-1],[a,b+2]].filter(p=>p[0]>=1&&p[1]>=1&&p[0]<=9&&p[1]<=9&&p[0]+p[1]!==10);
+    const seen=new Set([key(a,b)]),wr=[];raw.forEach(p=>{const k=key(p[0],p[1]);if(!seen.has(k)){seen.add(k);wr.push({k,h:'<span class="pl">'+k.replace('和',' 和 ')+'</span>'});}});
+    const ck=key(a,b);
+    return mkChoice(c,{subject:'math',topic:'make10p',prompt:'哪两个数合起来是 10 ?',say:'哪两个数合起来是10?',vis:wvis(c)?tenFrame(a)+'<div class="note">框里已经有 '+a+' 个</div>':'',
+      correct:{k:ck,h:'<span class="pl">'+ck.replace('和',' 和 ')+'</span>'},wrongs:wr,cols:1,hint:'两个数加起来,要正好把十格框填满~',
+      meta:{type:'tenpair',pairs:[ck].concat(wr.map(w=>w.k)),ans:ck},key:'m10p|'+a});
+  }
+  const a=R.int(1,9),b=10-a,cands=[b-1,b+1,b+2,b-2,a,10-b+1];
+  if(v==='dots'){
+    return numChoice(c,b,cands,1,9,{subject:'math',topic:'make10d',prompt:'红点 '+a+' 个,要凑成 10 个,还要几个蓝点?',say:'红点'+a+'个,要凑成10个,还要几个蓝点?',
+      vis:'<div class="dots">'+Array.from({length:10},(_,i)=>'<span class="dot '+(i<a?'d1':'')+'"></span>').join('')+'</div>',
+      hint:'数一数,白色的空圈有几个?',meta:{type:'ten',a,ans:b},key:'m10d|'+a});
+  }
+  if(v==='f2') return numChoice(c,b,cands,1,9,{subject:'math',topic:'ten2',prompt:'和 '+a+' 凑成 10 的数是几?',say:'和'+a+'凑成10的数是几?',vis:wvis(c)?tenFrame(a):'',
+    hint:'数数空格有几个~',meta:{type:'ten',a,ans:b},key:'m10b|'+a});
+  return numChoice(c,b,cands,1,9,{subject:'math',topic:'ten',prompt:a+' + ? = 10',say:a+'加几等于10?',vis:(wvis(c)?tenFrame(a):'')+eqHtml(a+' + <b class="q">?</b> = 10'),
+    hint:'格子里还差几个才满 10 个?',meta:{type:'ten',a,ans:b},key:'m10a|'+a});
+}
+
+/* ---------- 十加几:10 + 3 = 13 ---------- */
+function gTenPlus(c){
+  const R=c.R,b=R.int(1,9),ans=10+b,sw=c.cday>=10&&R.chance(.3),sv=wvis(c)||R.chance(.3);
+  const v=R.wpick([['plus',5],['fill',2.2],['place',1.6]],x=>x[1])[0];
+  if(v==='fill'){
+    return numChoice(c,b,[b-1,b+1,b+2,b-2,10],1,9,{subject:'math',topic:'tenplusfill',prompt:'10 + ? = '+ans,say:'10加几等于'+ans+'?',
+      vis:(sv?tenPlusVis(b,false,true):'')+eqHtml('10 + <b class="q">?</b> = '+ans),hint:ans+' 是 1 个十和几个一?看散开的小点~',
+      meta:{type:'tenplusfill',b,s:ans,ans:b},key:'tpf|'+b});
+  }
+  if(v==='place'){
+    return numChoice(c,ans,[b,ans-1,ans+1,ans+10,b*10+1,ans-2],1,29,{subject:'math',topic:'tenplusplace',prompt:'1 个十和 '+b+' 个一,合起来是几?',say:'1个十和'+b+'个一,合起来是几?',
+      vis:tensOnesVis(1,b),hint:'长条是十,小方块是一。十加几,就是 1 几~',meta:{type:'tenplus',a:10,b,ans},key:'tpp|'+b});
+  }
+  const q=sw?b+' + 10':'10 + '+b;
+  return numChoice(c,ans,[b,ans-1,ans+1,ans+2,ans-2,ans+10],1,29,{subject:'math',topic:'tenplus',prompt:q+' = ?',say:(sw?b+'加10':'10加'+b)+'等于几?',
+    vis:(sv?tenPlusVis(b,sw,false):'')+eqHtml(q+' = <b class="q">?</b>'),hint:'十格框满了是 10,再数散开的 '+b+' 个:10 加 '+b+' 就是 1'+b+'~',
+    meta:{type:'tenplus',a:10,b,ans,swap:sw},key:'tp|'+(sw?'s':'')+b});
+}
+
+/* ---------- 凑十法进位加(分步引导) ---------- */
+function stepOpts(c,ans,cands,lo,hi){
+  const R=c.R,w=R.shuffle(uniqInts(cands,lo,hi,ans));
+  for(let d=1;d<=10&&w.length<3;d++){[ans-d,ans+d].forEach(v=>{if(v>=lo&&v<=hi&&v!==ans&&!w.includes(v))w.push(v);});}
+  const n=Math.max(2,Math.min(c.diff===0?3:4,w.length+1));
+  return R.shuffle([{k:String(ans),h:String(ans),ok:true}].concat(w.slice(0,n-1).map(v=>({k:String(v),h:String(v),ok:false}))));
+}
+function carryBases(d){return d<=15?[9]:(d===16?[9,9,8,8]:(d===17?[8,8,8,9]:[9,8,7,7,6,6,8]));}
+function gCarry(c){
+  const R=c.R,d=c.cday,base=R.pick(carryBases(d)),other=R.int(Math.max(2,11-base),Math.min(base,9));
+  const swap=d>=17&&R.chance(.3),A=swap?other:base,B=swap?base:other,x=10-base,y=other-x,ans=base+other;
+  const steps=[
+    {prompt:base+' 和几凑成 10?',say:base+'和几凑成10?',opts:stepOpts(c,x,[x-1,x+1,x+2,x-2,other,10-other],1,9),hint:'看十格框,还空着几格?',line:base+' + '+x+' = 10'},
+    {prompt:'把 '+other+' 分成 '+x+' 和几?',say:'把'+other+'分成'+x+'和几?',opts:stepOpts(c,y,[y-1,y+1,y+2,y-2,x,other],1,9),hint:other+' 个点里,拿 '+x+' 个去填满十格框,还有几个在外面?',line:other+' = '+x+' + '+y},
+    {prompt:'10 + '+y+' = ?',say:'10加'+y+'等于几?',opts:stepOpts(c,ans,[ans-1,ans+1,ans+2,ans-2,y,ans-10],2,20),hint:'十加几,就是 1 几~',line:'10 + '+y+' = '+ans}
+  ];
+  return {kind:'guided',subject:'math',topic:'carry',prompt:A+' + '+B+' = ?',say:'用凑十法算一算,'+A+'加'+B+'等于几?',vis:'',base,other,A,B,steps,
+    key:'cy|'+A+'+'+B,meta:{type:'carry',a:A,b:B,base,other,x,y,ans,stepAns:[x,y,ans]}};
+}
+
+/* ---------- 20 以内加法综合 ---------- */
+function gAdd20(c){
+  const R=c.R,sv=wvis(c),v=R.wpick([['carry',4],['nocarry',2.2],['fill',2],['cmp',1.2]],x=>x[1])[0];
+  const carryPair=()=>{const a=R.int(2,9),b=R.int(Math.max(2,11-a),9);return [a,b];};
+  if(v==='carry'){
+    const [a,b]=carryPair(),ans=a+b,base=Math.max(a,b),other=Math.min(a,b),x=10-base,y=other-x;
+    return numChoice(c,ans,[ans-1,ans+1,ans-2,ans+2,ans-10,y],3,20,{subject:'math',topic:'add20',prompt:a+' + '+b+' = ?',say:a+'加'+b+'等于几?',
+      vis:(sv?carryVis(base,other,0):'')+eqHtml(a+' + '+b+' = <b class="q">?</b>'),hint:'凑十法:'+base+' + '+x+' = 10,再算 10 + '+y+' = '+ans+'~',
+      meta:{type:'add20',a,b,ans,carry:true},key:'a20|'+a+'+'+b});
+  }
+  if(v==='nocarry'){
+    const a=R.int(11,18),b=R.int(1,9-(a%10)),ans=a+b,sw=R.chance(.3),q=sw?b+' + '+a:a+' + '+b;
+    const vis='<div class="cv tv"><div class="tens"><i class="bar"></i>'+Array.from({length:a-10},()=>'<i class="one"></i>').join('')+'</div><i class="pl">+</i><div class="tens">'+Array.from({length:b},()=>'<i class="one o2"></i>').join('')+'</div></div>';
+    return numChoice(c,ans,[ans-1,ans+1,ans-2,ans+2,a,ans+10],12,20,{subject:'math',topic:'add20n',prompt:q+' = ?',say:(sw?b+'加'+a:a+'加'+b)+'等于几?',
+      vis:(sv?vis:'')+eqHtml(q+' = <b class="q">?</b>'),hint:'先看个位:'+(a%10)+' 加 '+b+' 等于 '+((a%10)+b)+',前面还有 1 个十~',
+      meta:{type:'add20',a,b,ans,carry:false},key:'a20|'+q});
+  }
+  if(v==='fill'){
+    const [a,b]=carryPair(),s=a+b,first=R.chance(.35),x=10-a,q=first?'? + '+a+' = '+s:a+' + ? = '+s;
+    // 注意: first 时,问号加 a 等于 s,答案是 b
+    return numChoice(c,b,[b-1,b+1,b+2,b-2,10-a,s-10],1,10,{subject:'math',topic:'add20f',prompt:q,say:(first?'几加'+a:a+'加几')+'等于'+s+'?',
+      vis:eqHtml(first?'<b class="q">?</b> + '+a+' = '+s:a+' + <b class="q">?</b> = '+s),hint:a+' 先加 '+x+' 凑成 10,还要再加 '+(b-x)+';一共加了几?',
+      meta:{type:'addfill20',a,s,ans:b,first},key:'a20f|'+q});
+  }
+  const [a,b]=R.chance(.5)?carryPair():[R.int(11,18),0],bb=b||R.int(1,9-(a%10)),sum=a+bb;
+  const cc=R.chance(.33)?sum:Math.max(2,Math.min(20,sum+R.pick([-3,-2,-1,1,2,3]))),ans=sum>cc?'>':(sum<cc?'<':'=');
+  return mkChoice(c,{subject:'math',topic:'add20c',prompt:'在 ○ 里填上 > < =',say:a+'加'+bb+',和'+cc+'比一比,谁大谁小?',
+    vis:'<div class="seq"><b>'+a+' + '+bb+'</b><b class="q">○</b><b>'+cc+'</b></div>',correct:{k:ans,h:'<span class="sym">'+esc(ans)+'</span>'},
+    wrongs:['>','<','='].filter(x=>x!==ans).map(x=>({k:x,h:'<span class="sym">'+esc(x)+'</span>'})),nopt:3,cols:3,hint:'先算出 '+a+' + '+bb+' 等于几,再和 '+cc+' 比大小~',
+    meta:{type:'addcmp',a,b:bb,c:cc,ans},key:'a20c|'+a+'+'+bb+','+cc});
+}
+
+/* ---------- 整十数加法:10 + 20 = 30 ---------- */
+function tensCap(c){return c.diff===0?(c.cday<24?50:70):(c.diff===1?(c.cday<24?70:100):100);}
+function pickTens(c){
+  const R=c.R,cap=tensCap(c),a=R.int(1,Math.floor((cap-10)/10))*10,b=R.int(1,Math.floor((cap-a)/10))*10;return [a,b];
+}
+function gTens(c){
+  const R=c.R,[a,b]=pickTens(c),ans=a+b,v=R.wpick([['add',5],['unit',2],['fill',2.2]],x=>x[1])[0];
+  const wr=[ans-10,ans+10,ans-20,ans+20,ans/10,ans+30,ans-30];
+  if(v==='unit'){
+    const ua=a/10,ub=b/10,us=ua+ub;
+    return numChoice(c,us,[us-1,us+1,us+2,us-2,ua,ub],1,10,{step:1,subject:'math',topic:'tensunit',prompt:ua+' 个十 + '+ub+' 个十 = 几个十?',say:ua+'个十加'+ub+'个十,等于几个十?',
+      vis:tensVis(a,b),hint:'数一数一共有几根"十"的长条~',meta:{type:'tensunit',a,b,ua,ub,ans:us},key:'tu|'+a+'+'+b});
+  }
+  if(v==='fill'){
+    const first=R.chance(.4),q=first?'? + '+b+' = '+ans:a+' + ? = '+ans,miss=first?a:b,known=first?b:a;
+    return numChoice(c,miss,[miss-10,miss+10,miss-20,miss+20,miss/10,known],10,90,{step:10,subject:'math',topic:'tensfill',prompt:q,say:(first?'几加'+b:a+'加几')+'等于'+ans+'?',
+      vis:(wvis(c)?'<div class="cv tv">'+rods(known/10,'r1')+'<i class="pl">+</i><div class="rods"><i class="rod r2 qq">?</i></div></div>':'')+eqHtml(first?'<b class="q">?</b> + '+b+' = '+ans:a+' + <b class="q">?</b> = '+ans),
+      hint:ans/10+' 个十里面,已经有 '+known/10+' 个十,还要几个十?',meta:{type:'tensfill',a:first?miss:a,b:first?b:miss,ans:miss,s:ans,first},key:'tf|'+q});
+  }
+  return numChoice(c,ans,wr,10,100,{step:10,subject:'math',topic:'tensadd',prompt:a+' + '+b+' = ?',say:a+'加'+b+'等于几?',
+    vis:(wvis(c)?tensVis(a,b):'')+eqHtml(a+' + '+b+' = <b class="q">?</b>'),hint:a/10+' 个十加 '+b/10+' 个十,是 '+ans/10+' 个十,也就是 '+ans+'~',
+    meta:{type:'tensadd',a,b,ans},key:'ta|'+a+'+'+b});
+}
+function gTensOnes(c){
+  const R=c.R,t=R.int(1,9),o=R.int(1,9),a=t*10,ans=a+o,sw=R.chance(.3),q=sw?o+' + '+a:a+' + '+o;
+  return numChoice(c,ans,[ans-1,ans+1,ans+10,ans-10,o*10+t,t+o],11,99,{subject:'math',topic:'tensones',prompt:q+' = ?',say:(sw?o+'加'+a:a+'加'+o)+'等于几?',
+    vis:(wvis(c)?tensOnesVis(t,o):'')+eqHtml(q+' = <b class="q">?</b>'),hint:t+' 个十和 '+o+' 个一,合起来是 '+ans+'~',meta:{type:'tensones',a,b:o,ans,swap:sw},key:'to|'+q});
+}
+
+/* ---------- 加法应用题 ---------- */
+const WORD_T=[
+ ['🍎',(a,b)=>'盘子里有'+a+'个苹果,又放进'+b+'个,一共有几个?'],['🐰',(a,b)=>'草地上有'+a+'只兔子,又跑来'+b+'只,一共有几只?'],
+ ['🐦',(a,b)=>'树上有'+a+'只小鸟,又飞来'+b+'只,一共有几只?'],['🎈',(a,b)=>'小明有'+a+'个气球,妈妈又买了'+b+'个,一共有几个?'],
+ ['🍬',(a,b)=>'我有'+a+'颗糖,爸爸又给了我'+b+'颗,现在有几颗?'],['🐟',(a,b)=>'鱼缸里有'+a+'条小鱼,又放进'+b+'条,一共有几条?'],
+ ['🌸',(a,b)=>'左边花坛有'+a+'朵花,右边花坛有'+b+'朵,合起来有几朵?']
+];
+function gWord(c){
+  const R=c.R,d=c.cday,t=R.pick(WORD_T);let a,b;
+  const tens=d>=24&&R.chance(.5);
+  if(tens){[a,b]=pickTens(c);}
+  else if(d<19){const s=R.int(3,10);a=R.int(1,s-1);b=s-a;}
+  else{a=R.int(2,9);b=R.int(Math.max(2,11-a),9);}
+  const ans=a+b,txt=t[1](a,b),big=ans>20;
+  return numChoice(c,ans,big?[ans-10,ans+10,ans-20,ans+20,ans/10]:[ans-1,ans+1,ans+2,ans-2,Math.max(a,b)],1,big?100:20,{subject:'math',topic:'word',prompt:txt,say:txt,
+    vis:'<div class="bigemo">'+t[0]+'</div>',hint:'"一共""合起来",就是把两部分加起来~',meta:{type:'word-add',a,b,ans},key:'w|'+txt});
+}
+/* ---------- 加法混合复习 ---------- */
+function gMixed(c){
+  const R=c.R,d=c.cday,pool=[[gMake10,1],[gTenPlus,2],[gAdd20,2.5]];
+  if(d>=15)pool.push([gCarry,2.5]);
+  if(d>=22)pool.push([gTens,2]);
+  if(d>=24)pool.push([gTensOnes,1.2]);
+  return R.wpick(pool,x=>x[1])[0](c);
+}
+
+/* ================= 英语:26 个字母 =================
+ * 题型:字母卡(abc) / 跟读(follow) / 听音选字母 / 大小写选择 / 大小写配对 / 找不同 / 字母顺序 / 看图选首字母 */
+const LTR_BY={};LETTERS.forEach(x=>{LTR_BY[x.u]=x;});
+const SIM_GROUPS=[['b','d','p','q'],['m','n','h','u','r'],['i','j','l','t'],['a','e','o','c','s'],['g','q','y'],['u','v','w'],['f','t'],['k','x','z'],
+  ['B','D','P','R'],['E','F'],['M','W','N'],['O','Q','C','G'],['I','J','L','T'],['U','V','Y'],['K','X','Y'],['S','Z']];
+const DIFF_PAIRS_L=[['b','d'],['p','q'],['b','p'],['d','q'],['m','n'],['n','u'],['i','j'],['a','e'],['n','h'],['u','v'],['f','t'],['g','q'],['v','w'],['c','o'],
+  ['E','F'],['M','W'],['O','Q'],['P','R'],['I','J'],['U','V'],['C','G'],['B','D']];
+function ltrSpan(ch,cls){return '<span class="ltr'+(cls?' '+cls:'')+'">'+ch+'</span>';}
+function ltrOpt(ch){return {k:ch,h:ltrSpan(ch)};}
+function knownSet(c){return new Set(c.spec.knownLtr);}
+function ltrWeight(c,u){
+  const s=c.spec;let w=1;
+  if(s.newLtr.includes(u))w+=4;
+  if(s.reLtr.includes(u))w+=3.5;
+  if(s.type!=='learn'&&s.weekLtr.includes(u))w+=2.5;
+  const lo=u.toLowerCase(),ks=knownSet(c);
+  if(SIM_GROUPS.some(g=>(g.includes(lo)||g.includes(u))&&g.some(x=>x!==lo&&x!==u&&ks.has(x.toUpperCase()))))w+=1.2; // 易混字母多出现
+  return w;
+}
+function ltrPick(c,filter){
+  const list=c.spec.knownLtr.filter(u=>!filter||filter(u));
+  return c.R.wpick(list.map(u=>[u,ltrWeight(c,u)]),x=>x[1])[0];
+}
+/* 干扰项:先放长得像的(已学过的),再放其他已学字母;avoid 里的字符不出现 */
+function ltrWrongs(c,u,lower,avoid){
+  const R=c.R,ks=knownSet(c),ch=lower?u.toLowerCase():u,out=[],av=avoid||[];
+  const add=x=>{if(x!==ch&&!out.includes(x)&&!av.includes(x))out.push(x);};
+  const sims=[];SIM_GROUPS.forEach(g=>{if(g.includes(ch))g.forEach(x=>{if(ks.has(x.toUpperCase()))sims.push(x);});});
+  R.shuffle(sims).forEach(add);
+  R.shuffle(c.spec.knownLtr.map(x=>lower?x.toLowerCase():x)).forEach(add);
+  if(out.length<3)R.shuffle(LETTERS.map(x=>lower?x.l:x.u)).forEach(add);
+  return out;
+}
+function fbSpeak(L){return '请爸爸妈妈读「'+L.say+'」('+L.ipa+')';}
+
+/* ---------- 字母卡 ---------- */
+function ltrCard(c,letters,title,re){
+  const items=letters.map(u=>{const L=LTR_BY[u];return {u:L.u,l:L.l,w:L.w,zh:L.zh,emo:L.e,say:L.say,ipa:L.ipa,ph:L.ph,note:L.note||''};});
+  const tip=re?(LTR_TIPS[letters.join('')]||'看一看,它们的样子有什么不一样?'):'';
+  return {kind:'abc',subject:'en',title,items,re:!!re,tip,lang:'en',key:(re?'abr|':'abc|')+letters.join('')};
+}
+/* ---------- 跟读 ---------- */
+function gLtrFollow(c){
+  const pool=[];c.spec.knownLtr.forEach(u=>{const n=Math.max(1,Math.round(ltrWeight(c,u)));for(let i=0;i<n;i++)pool.push(u);});
+  return {kind:'follow',subject:'en',prompt:'跟读小达人',pool,need:4,lang:'en',key:'follow|'+c.cday};
+}
+/* ---------- 听音选字母 ---------- */
+function gLtrListen(c){
+  const R=c.R,t=ltrPick(c),L=LTR_BY[t];
+  const lower=c.diff===0?false:R.chance(c.diff===2?.6:.4),sh=lower?L.l:L.u;
+  return mkChoice(c,{subject:'en',topic:'ltrlisten',lang:'en',prompt:'听一听,这是哪个字母?',say:L.say,
+    vis:'<div class="bigemo">🔊</div><div class="ifnotts note">这台设备不能朗读:'+fbSpeak(L)+'</div>',
+    correct:ltrOpt(sh),wrongs:ltrWrongs(c,t,lower).map(ltrOpt),keepOrder:true,cols:c.nopt>3?2:3,optCls:'opt-ltr',
+    hint:'再点一次 🔊 听一听,想想字母的样子~',meta:{type:'ltrlisten',ans:t,shown:sh,say:L.say},key:'ll|'+sh});
+}
+/* ---------- 大小写(选) ---------- */
+function gLtrCase(c){
+  const R=c.R,t=ltrPick(c),L=LTR_BY[t],ul=R.chance(.5);
+  const ans=ul?L.l:L.u,avoid=ul?(t==='I'?['l']:[]):(t==='L'?['I']:[]);
+  return mkChoice(c,{subject:'en',topic:'ltrcase',prompt:ul?'大写字母,它的小写是哪个?':'小写字母,它的大写是哪个?',say:'',
+    vis:'<div class="ltrbig">'+ltrSpan(ul?L.u:L.l,'xl')+'</div>',correct:ltrOpt(ans),wrongs:ltrWrongs(c,t,ul,avoid).map(ltrOpt),keepOrder:true,
+    cols:c.nopt>3?2:3,optCls:'opt-ltr',hint:'大写和小写是一对好朋友,看看它们的样子~',
+    meta:{type:'ltrcase',up:L.u,low:L.l,dir:ul?'ul':'lu',ans},key:'lc|'+t+(ul?'u':'l')});
+}
+/* ---------- 大小写配对 ---------- */
+function gLtrMatch(c){
+  const R=c.R,ks=c.spec.knownLtr,first=ltrPick(c),set=[first];
+  const ok=u=>!set.includes(u)&&!((u==='I'&&set.includes('L'))||(u==='L'&&set.includes('I')));
+  // 优先配一个长得像的字母(如 b 和 d),练习分辨
+  const lo=first.toLowerCase(),sims=[];
+  SIM_GROUPS.forEach(g=>{if(g.includes(lo)||g.includes(first))g.forEach(x=>{const u=x.toUpperCase();if(ks.includes(u)&&ok(u)&&!sims.includes(u))sims.push(u);});});
+  if(sims.length&&R.chance(.7))set.push(R.pick(sims));
+  while(set.length<3){const u=ltrPick(c,ok);if(!u||!ok(u))break;set.push(u);}
+  if(set.length<2){return gLtrCase(c);}
+  const ps=R.shuffle(set);
+  return {kind:'match',subject:'en',topic:'ltrmatch',prompt:'连一连:大写和小写是好朋友',say:'',
+    pairs:ps.map((u,i)=>({id:i,l:ltrSpan(u),r:ltrSpan(u.toLowerCase())})),
+    key:'lm|'+set.slice().sort().join(''),meta:{type:'ltrmatch',pairs:ps.map(u=>[u,u.toLowerCase()])}};
+}
+/* ---------- 找出不同的字母 ---------- */
+function gLtrDiff(c){
+  const R=c.R,ks=knownSet(c),total=c.diff===0?6:(c.diff===1?9:12);
+  let cands=DIFF_PAIRS_L.filter(p=>p.every(x=>ks.has(x.toUpperCase())));
+  let a,b;
+  if(cands.length&&(c.spec.knownLtr.length>=6?true:false)){
+    // 易混的字母对:当天新字母或本周重点的优先
+    const ws=cands.map(p=>[p,1+p.reduce((s,x)=>s+(c.spec.newLtr.includes(x.toUpperCase())||c.spec.reLtr.includes(x.toUpperCase())?3:0),0)]);
+    [a,b]=R.wpick(ws,x=>x[1])[0];
+  }else{
+    const lst=c.spec.knownLtr;const x=R.pick(lst);let y=R.pick(lst.filter(z=>z!==x));
+    if(!y)y=x==='A'?'B':'A';
+    const lower=c.diff>0&&R.chance(.5);a=lower?x.toLowerCase():x;b=lower?y.toLowerCase():y;
+  }
+  if(R.chance(.5)){const t=a;a=b;b=t;}
+  const odd=R.int(0,total-1),opts=[];
+  for(let i=0;i<total;i++)opts.push({k:String(i),h:ltrSpan(i===odd?b:a),ok:i===odd});
+  return {kind:'choice',subject:'en',topic:'ltrdiff',prompt:'找出不一样的字母',say:'',vis:'',opts,cols:3,fixed:true,dupOK:true,optCls:'opt-ltr opt-cell',
+    hint:'仔细看,有一个字母的方向或样子不一样~',ok:true,
+    meta:{type:'ltrdiff',total,odd,base:a,diff:b},key:'ld|'+a+b+'|'+odd+'|'+total+'|'+c.idx};
+}
+/* ---------- 字母顺序 ---------- */
+function gLtrSeq(c){
+  const R=c.R,ks=c.spec.knownLtr,len=c.diff===0?4:5;
+  const letters=LETTERS.map(x=>x.u);
+  let t=ltrPick(c,u=>{const i=letters.indexOf(u);return i>=1&&i<=24;}); // 不放在最前最后
+  if(!t)t=R.pick(ks.filter(u=>u!=='A'&&u!=='Z'))||'B';
+  const ti=letters.indexOf(t);
+  // 序列长度 len,t 不在首尾
+  const minStart=Math.max(0,ti-len+2),maxStart=Math.min(26-len,ti-1);
+  const start=R.int(minStart,Math.max(minStart,maxStart)),lower=c.diff>0&&R.chance(.5);
+  const seq=[];for(let i=0;i<len;i++){const ch=letters[start+i];seq.push(lower?ch.toLowerCase():ch);}
+  const bi=ti-start,ans=seq[bi],shown=seq.slice();shown[bi]='?';
+  const used=new Set(seq);
+  const near=[];[-2,-1,1,2,3,-3].forEach(d=>{const j=ti+d;if(j>=0&&j<26){const ch=lower?letters[j].toLowerCase():letters[j];if(!used.has(ch)&&!near.includes(ch))near.push(ch);}});
+  const wr=R.shuffle(near).slice(0,5);
+  ltrWrongs(c,t,lower).forEach(x=>{if(!used.has(x)&&!wr.includes(x)&&wr.length<5)wr.push(x);});
+  return mkChoice(c,{subject:'en',topic:'ltrseq',prompt:'补上缺的字母',say:'',
+    vis:'<div class="seq lseq">'+shown.map(x=>x==='?'?'<b class="q">?</b>':'<b>'+x+'</b>').join('')+'</div>',
+    correct:ltrOpt(ans),wrongs:wr.map(ltrOpt),cols:c.nopt>3?2:3,optCls:'opt-ltr',hint:'照着字母歌的顺序,一个一个念~',
+    meta:{type:'ltrseq',seq,blank:bi,ans},key:'lq|'+seq.join('')});
+}
+/* ---------- 看图选首字母 ---------- */
+function gLtrPic(c){
+  const R=c.R,t=ltrPick(c,u=>LTR_BY[u].ini!==false),L=LTR_BY[t];
+  return mkChoice(c,{subject:'en',topic:'ltrpic',lang:'en',prompt:L.w+' 的第一个字母是?',say:L.w,
+    vis:'<div class="bigemo">'+L.e+'</div><div class="note">'+L.w+' · '+L.zh+'</div>',
+    correct:ltrOpt(L.u),wrongs:ltrWrongs(c,t,false).map(ltrOpt),keepOrder:true,cols:c.nopt>3?2:3,optCls:'opt-ltr',
+    hint:'读一读 '+L.w+',开头是 '+L.u+' '+L.l+'~',meta:{type:'ltrpic',word:L.w,ans:L.u},key:'lp|'+t});
+}
+/* ---------- 字母关 ---------- */
+function blockLetter(c,n){
+  const s=c.spec,items=[];
+  if(s.type==='learn'&&s.newLtr.length)items.push(ltrCard(c,s.newLtr,'今天认识新字母',false));
+  else if(s.type==='learn'&&s.reLtr.length)items.push(ltrCard(c,s.reLtr,'再认一认,这些字母容易混',true));
+  const f=gLtrFollow(c);c.used.add(f.key);items.push(f);
+  const d=c.cday,nk=s.knownLtr.length;
+  const gens=[[gLtrListen,3],[gLtrCase,1.8],[gLtrMatch,1.4],[gLtrDiff,nk>=2?2.4:0],[gLtrSeq,nk>=3?1.6:0],[gLtrPic,1.6]].filter(x=>x[1]>0);
+  fill(c,n-items.length,gens).forEach(x=>items.push(x));
+  return items;
+}
+
 /* ================= 课程表(30天) ================= */
 const INIT_NEW={1:['b','p','m','f'],2:['d','t','n','l'],3:['g','k','h'],4:['j','q','x'],5:['z','c','s'],15:['zh','ch','sh'],16:['r','y','w']};
 const FIN_NEW={8:['a','o','e'],9:['i','u','ü'],10:['ai','ei','ui'],11:['ao','ou','iu'],12:['ie','üe','er'],22:['an','en','in'],23:['un','ün'],24:['ang','eng'],25:['ing','ong']};
 const WEEKS=[
- {name:'声母小镇',icon:'🏘️',desc:'声母 · 数到20 · 认识数字和身体'},
- {name:'韵母乐园',icon:'🎡',desc:'韵母 · 10以内加法 · 日月水火'},
- {name:'拼读大冒险',icon:'🚀',desc:'拼一拼 · 减法与凑十 · 认整点'},
- {name:'小学预备营',icon:'🏫',desc:'数到100 · 应用题 · 综合'},
+ {name:'声母小镇',icon:'🏘️',desc:'声母 · 凑十 · 字母 A–P'},
+ {name:'韵母乐园',icon:'🎡',desc:'韵母 · 十加几 · 字母 N–Z 和 b d'},
+ {name:'拼读大冒险',icon:'🚀',desc:'拼一拼 · 凑十法进位加 · 易混字母'},
+ {name:'小学预备营',icon:'🏫',desc:'整十数加法 · 应用题 · 字母综合'},
  {name:'毕业典礼',icon:'🎓',desc:'大复习 · 毕业挑战'}
 ];
 const OUTLINE=[
- '声母 b p m f · 数到10 · 一二三四五','声母 d t n l · 比大小 · 六七八九十','声母 g k h · 认图形 · 人口手足目','声母 j q x · 5以内分与合 · 耳头大小上','声母 z c s · 数到20 · 下左右中多','本周大复习(复习日)','周末挑战赛(挑战日)',
- '韵母 a o e · 5以内加法 · 少日月水火','韵母 i u ü · 10的分与合 · 山石田土木','韵母 ai ei ui · 10以内加法 · 天地云雨风','韵母 ao ou iu · 数序前后 · 雪花草树鸟','韵母 ie üe er · 数字排序 · 鱼虫牛羊马','本周大复习(复习日)','周末挑战赛(挑战日)',
- '声母 zh ch sh · 5以内减法 · 狗猫爸妈你','声母 r y w · 10以内减法 · 我他们好白','声母韵母拼一拼 · 凑十 · 红黄青绿春','拼读 · 找规律 · 夏秋冬东南','拼读与词语 · 认整点 · 西北门车刀','本周大复习(复习日)','周末挑战赛(挑战日)',
- '韵母 an en in · 数到100 · 力心开关来','韵母 un ün · 加减混合 · 去出入不有','韵母 ang eng · 应用题 · 在米竹学书','韵母 ing ong · 数字规律 · 家国回年光','拼读与词语 · 综合练习 · 工字吃看说','本周大复习(复习日)','周末挑战赛(挑战日)',
+ '声母 b p m f · 数到10 · 一二三四五 · 字母 A B C','声母 d t n l · 比大小 · 六七八九十 · 字母 D E F','声母 g k h · 5以内加法 · 人口手足目 · 字母 G H I','声母 j q x · 凑十(几和几是10) · 耳头大小上 · 字母 J K L','声母 z c s · 凑十 · 下左右中多 · 字母 M O P','本周大复习(复习日)','周末挑战赛(挑战日)',
+ '韵母 a o e · 十加几 10+3 · 少日月水火 · 字母 N R S','韵母 i u ü · 十加几 · 山石田土木 · 字母 Q T U','韵母 ai ei ui · 十加几 · 天地云雨风 · 字母 V W X','韵母 ao ou iu · 十加几 · 雪花草树鸟 · 字母 Y Z','韵母 ie üe er · 十加几巩固 · 鱼虫牛羊马 · 易混字母 b d','本周大复习(复习日)','周末挑战赛(挑战日)',
+ '声母 zh ch sh · 9加几(凑十法) · 狗猫爸妈你 · 易混字母 p q','声母 r y w · 9加几 8加几 · 我他们好白 · 易混字母 m n','声母韵母拼一拼 · 8加几 · 红黄青绿春 · 易混字母 i j','拼读 · 7加几 6加几 · 夏秋冬东南 · 易混字母 a e','拼读与词语 · 20以内加法 · 西北门车刀 · 易混字母 u v w','本周大复习(复习日)','周末挑战赛(挑战日)',
+ '韵母 an en in · 整十数加法 10+20 · 力心开关来 · 易混字母 b d p q','韵母 un ün · 整十数加法 30+20 · 去出入不有 · 易混字母 m n h','韵母 ang eng · 整十加几 20+3 · 在米竹学书 · 字母 E F M W(大写)','韵母 ing ong · 加法应用题 · 家国回年光 · 易混字母 i j l t','拼读与词语 · 加法综合 · 工字吃看说 · 易混字母 a e o c','本周大复习(复习日)','周末挑战赛(挑战日)',
  '毕业大复习','毕业大挑战'
 ];
-const MATH_UNLOCK={count:1,compare:2,shape:3,compose:4,position:5,add:8,seq:11,order:12,sub:15,ten:17,pattern:18,clock:19,hundred:22,mixed:23,word:24};
-const MATH_GENS={count:[gCount,gCountPick,gCountSeq],compare:[gCompare],shape:[gShape],compose:[gCompose],position:[gPosition],add:[gAdd],seq:[gSeq],order:[gOrder],sub:[gSub],ten:[gTen],pattern:[gPattern],clock:[gClock],hundred:[gHundred],mixed:[gMixed],word:[gWord]};
+/* 数学题型的解锁日。没有任何减法题型。 core=加法主线,复习时权重更高 */
+const MATH_UNLOCK={count:1,compare:2,shape:3,compose:3,add:3,make10:4,position:5,tenplus:8,seq:10,order:11,carry:15,pattern:16,clock:18,add20:19,hundred:20,tens:22,tensones:24,word:25,mixed:27};
+const MATH_CORE={add:1,make10:1,tenplus:1,carry:1,add20:1,tens:1,tensones:1,word:1,mixed:1,compose:0.5};
+const MATH_GENS={count:[gCount,gCountPick,gCountSeq],compare:[gCompare],shape:[gShape],compose:[gCompose],position:[gPosition],add:[gAdd],make10:[gMake10],tenplus:[gTenPlus],seq:[gSeq],order:[gOrder],
+  carry:[gCarry],pattern:[gPattern],clock:[gClock],add20:[gAdd20],hundred:[gHundred],tens:[gTens],tensones:[gTensOnes],word:[gWord],mixed:[gMixed]};
 
 function contentDay(cur){return cur<=30?cur:29+(cur%2);}
 function daySpec(day){
@@ -930,7 +1320,14 @@ function daySpec(day){
   let weekChars=[],weekInit=[],weekFin=[];
   if(type!=='learn'&&day<29){for(let d=(week-1)*7+1;d<=day;d++){weekInit=weekInit.concat(INIT_NEW[d]||[]);weekFin=weekFin.concat(FIN_NEW[d]||[]);if(CHAR_PLAN[d])weekChars=weekChars.concat(Array.from(CHAR_PLAN[d]));}}
   const topics=Object.keys(MATH_UNLOCK).filter(k=>MATH_UNLOCK[k]<=day);
-  return {day,week,dw,type,week_name:WEEKS[week-1].name,title:OUTLINE[day-1],knownInit,knownFin,knownChars,newInit,newFin,newChars,weekChars,weekInit,weekFin,topics,
+  // 英语字母:已学、今天新学、今天重点再认、复习日要复习的
+  const ALL_U=LETTERS.map(x=>x.u);let knownLtr=[],weekLtr=[];
+  for(let d=1;d<=day;d++)Array.from(LTR_NEW[d]||'').forEach(x=>knownLtr.push(x));
+  if(day>=29)knownLtr=ALL_U.slice();
+  const newLtr=day>=29?[]:Array.from(LTR_NEW[day]||''),reLtr=day>=29?[]:Array.from(LTR_RE[day]||'');
+  if(type!=='learn'&&day<29){for(let d=(week-1)*7+1;d<=day;d++){weekLtr=weekLtr.concat(Array.from(LTR_NEW[d]||''),Array.from(LTR_RE[d]||''));}}
+  if(day>=29)weekLtr=ALL_U.slice();
+  return {day,week,dw,type,week_name:WEEKS[week-1].name,title:OUTLINE[day-1],knownInit,knownFin,knownChars,newInit,newFin,newChars,weekChars,weekInit,weekFin,topics,knownLtr,newLtr,reLtr,weekLtr,
     poem:day>=29?-1:Math.min(3,week-1),habit:HABITS[day-1],tip:TIPS[day-1]};
 }
 function makeCtx(cur,diff,idx,loop){
@@ -997,19 +1394,25 @@ function blockChars(c,n){
 function blockTrace(c,n){const out=[];const cc=(c.spec.type!=='learn'&&c.spec.weekChars.length&&c.cday<29)?Object.assign({},c,{spec:Object.assign({},c.spec,{newChars:c.spec.weekChars})}):c;return fill(cc,n,[[gTrace,1]]);}
 function blockStroke(c,n){return fill(c,n,[[gStrokeOrder,2],[gStrokeShape,1],[gStrokeCount,1]]);}
 function blockMath(c,n){
-  const s=c.spec,d=c.cday,gens=[];
+  const s=c.spec,d=c.cday,gens=[],items=[];
   s.topics.forEach(t=>{
     const age=d-MATH_UNLOCK[t];let w=1;
     if(s.type==='learn'){if(age===0)w=4;else if(age<=2)w=2.2;}
     else if(s.type==='challenge'){w=age>=6?1.8:1.2;}
+    const core=MATH_CORE[t];
+    if(core&&d>=6)w*=1+core*0.5; else if(!core&&d>=8)w*=0.55;      // 8 天以后,主线是加法
+    if(t==='tenplus'&&d>=9&&d<=24)w*=1.5;                              // 十加个位数多巩固
     MATH_GENS[t].forEach(g=>gens.push([g,w/MATH_GENS[t].length*(t==='count'&&d>8?0.5:1)]));
   });
-  return fill(c,n,gens);
+  // 十加个位数:第 9–28 天,每天(数学乐园里)至少一题
+  if(c.idx===1&&d>=9&&d<=28&&s.topics.includes('tenplus')){const it=gTenPlus(c);c.used.add(it.key);items.push(it);}
+  // 当天较早的数学关出过的题,这里不再重复
+  return items.concat(fill(c,n-items.length,gens));
 }
 function blockLogic(c,n){
   const d=c.cday,odd=d%2===1;
   const seqList=odd?[gDiff,gClassify,gMemory,gOdd,gMaze,gDiff,gClassify]:[gClassify,gDiff,gMaze,gOdd,gMemory,gClassify,gDiff];
-  const out=[];
+  const out=[],rot=d%5;for(let k=0;k<rot;k++)seqList.push(seqList.shift());
   for(let i=0;i<seqList.length&&out.length<n;i++){
     for(let t=0;t<12;t++){
       let it=null;try{it=seqList[i](c);}catch(e){GEN_ERRORS.push(String(e&&e.stack||e));break;}
@@ -1036,27 +1439,34 @@ function blockPoem(c,n){
   return items;
 }
 function blockSay(c,n){return fill(c,n,[[gSay,1]]);}
-const BLOCKS={pinyin:blockPinyin,word:blockWord,chars:blockChars,trace:blockTrace,stroke:blockStroke,math:blockMath,logic:blockLogic,poem:blockPoem,say:blockSay};
+const BLOCKS={pinyin:blockPinyin,word:blockWord,chars:blockChars,trace:blockTrace,stroke:blockStroke,math:blockMath,logic:blockLogic,poem:blockPoem,say:blockSay,letter:blockLetter};
 function levelPlan(count){
   if(count>=5)return [
     {name:'拼音小镇',icon:'🔤',parts:[['pinyin',5],['word',1]]},
     {name:'数学乐园',icon:'🔢',parts:[['math',7]]},
-    {name:'逻辑小游戏',icon:'🧩',parts:[['logic',5]]},
+    {name:'字母小屋',icon:'🅰️',parts:[['letter',7]]},
     {name:'识字描红',icon:'✍️',parts:[['chars',4],['trace',1],['stroke',1]]},
-    {name:'诗和数学',icon:'📜',parts:[['math',3],['poem',2],['say',1]]}];
+    {name:'数学和古诗',icon:'📜',parts:[['math',3],['poem',2],['logic',1],['say',1]]}];
   if(count===4)return [
     {name:'拼音小镇',icon:'🔤',parts:[['pinyin',5],['word',1]]},
     {name:'数学乐园',icon:'🔢',parts:[['math',7]]},
-    {name:'逻辑小游戏',icon:'🧩',parts:[['logic',5]]},
-    {name:'识字和古诗',icon:'✍️',parts:[['chars',3],['trace',1],['poem',2]]}];
+    {name:'字母小屋',icon:'🅰️',parts:[['letter',7]]},
+    {name:'识字和古诗',icon:'✍️',parts:[['chars',3],['trace',1],['poem',2],['logic',1]]}];
   return [
     {name:'拼音和汉字',icon:'🔤',parts:[['pinyin',4],['chars',3]]},
     {name:'数学乐园',icon:'🔢',parts:[['math',6]]},
-    {name:'逻辑和古诗',icon:'🧩',parts:[['logic',4],['poem',2],['trace',1]]}];
+    {name:'字母和古诗',icon:'🅰️',parts:[['letter',5],['poem',1],['trace',1]]}];
 }
 function buildLevel(cur,diff,idx,count,loop){
   const plan=levelPlan(count),p=plan[Math.min(idx,plan.length-1)];
   const c=makeCtx(cur,diff,idx,loop);
+  // 同一天里,前面的数学关出过的题,后面的数学关不再重复出
+  if(p.parts.some(pt=>pt[0]==='math')){
+    for(let j=0;j<idx&&j<plan.length;j++){
+      const pj=plan[j],mp=pj.parts.find(pt=>pt[0]==='math');
+      if(mp){const cj=makeCtx(cur,diff,j,loop);BLOCKS.math(cj,mp[1]).forEach(it=>c.used.add(it.key));}
+    }
+  }
   let items=[];
   p.parts.forEach(pt=>{items=items.concat(BLOCKS[pt[0]](c,pt[1]));});
   return {name:p.name,icon:p.icon,idx,items,total:plan.length};
@@ -1065,7 +1475,7 @@ function buildLevel(cur,diff,idx,count,loop){
 /* ================= 存档 ================= */
 const SKEY='xiaoxue_v1_progress';
 let storageOK=true,memStore=null;
-function defaultState(){return {v:1,diff:1,levels:5,sound:true,voice:true,cur:1,assign:'',stars:0,streak:0,best:0,lastDone:'',days:{},stickers:[],totalDays:0,loops:0,created:todayStr(),petName:''};}
+function defaultState(){return {v:1,cv:2,ear:false,diff:1,levels:5,sound:true,voice:true,cur:1,assign:'',stars:0,streak:0,best:0,lastDone:'',days:{},stickers:[],totalDays:0,loops:0,created:todayStr(),petName:''};}
 function clampInt(v,a,b,d){v=parseInt(v,10);return isNaN(v)?d:Math.max(a,Math.min(b,v));}
 function sanitize(o){
   const d=defaultState();if(!o||typeof o!=='object')return d;
@@ -1073,13 +1483,17 @@ function sanitize(o){
   d.cur=clampInt(o.cur,1,9999,1);d.assign=typeof o.assign==='string'?o.assign.slice(0,10):'';d.stars=clampInt(o.stars,0,1e7,0);
   d.streak=clampInt(o.streak,0,99999,0);d.best=clampInt(o.best,0,99999,0);d.lastDone=typeof o.lastDone==='string'?o.lastDone.slice(0,10):'';
   d.totalDays=clampInt(o.totalDays,0,99999,0);d.loops=clampInt(o.loops,0,99999,0);d.created=typeof o.created==='string'?o.created.slice(0,10):d.created;
+  d.ear=o.ear===true;
+  const oldcv=clampInt(o.cv,1,99,1);
   d.petName=typeof o.petName==='string'?o.petName.slice(0,8):'';
   if(Array.isArray(o.stickers))d.stickers=o.stickers.map(x=>parseInt(x,10)).filter(x=>x>=0&&x<STICKERS.length).filter((x,i,a)=>a.indexOf(x)===i);
   if(o.days&&typeof o.days==='object'){
     Object.keys(o.days).forEach(k=>{
       const n=parseInt(k,10);if(!(n>=1&&n<=9999))return;const r=o.days[k]||{};
-      const st={};['py','zi','poem','math','logic'].forEach(s=>{const a=(r.st&&r.st[s])||[0,0];st[s]=[clampInt(a[0],0,9999,0),clampInt(a[1],0,9999,0)];});
-      d.days[n]={done:!!r.done,date:typeof r.date==='string'?r.date.slice(0,10):'',lv:clampInt(r.lv,0,5,0),stars:clampInt(r.stars,0,9999,0),st,habit:!!r.habit,plays:clampInt(r.plays,0,999,0)};
+      const st={};['py','zi','poem','math','logic','en'].forEach(s=>{const a=(r.st&&r.st[s])||[0,0];st[s]=[clampInt(a[0],0,9999,0),clampInt(a[1],0,9999,0)];});
+      const done=!!r.done;let lv=clampInt(r.lv,0,5,0);
+      if(oldcv<2&&!done)lv=Math.min(lv,2); // 旧版(v1)课程只有拼音/数学在前两关;第3关起内容变了,没做完的天从第3关重新开始
+      d.days[n]={done,date:typeof r.date==='string'?r.date.slice(0,10):'',lv,stars:clampInt(r.stars,0,9999,0),st,habit:!!r.habit,plays:clampInt(r.plays,0,999,0)};
     });
   }
   return d;
@@ -1096,7 +1510,7 @@ function saveState(){
 }
 let S=loadState();
 function dayRec(d){
-  if(!S.days[d])S.days[d]={done:false,date:'',lv:0,stars:0,st:{py:[0,0],zi:[0,0],poem:[0,0],math:[0,0],logic:[0,0]},habit:false,plays:0};
+  if(!S.days[d])S.days[d]={done:false,date:'',lv:0,stars:0,st:{py:[0,0],zi:[0,0],poem:[0,0],math:[0,0],logic:[0,0],en:[0,0]},habit:false,plays:0};
   return S.days[d];
 }
 function ensureToday(){
@@ -1144,15 +1558,20 @@ const Sfx=(function(){
 /* ================= 朗读 ================= */
 const Tts=(function(){
   const ok=typeof window!=='undefined'&&'speechSynthesis' in window&&typeof window.SpeechSynthesisUtterance==='function';
-  let voice=null;
-  function pick(){if(!ok)return;try{const vs=window.speechSynthesis.getVoices()||[];voice=vs.find(v=>/zh[-_]CN/i.test(v.lang))||vs.find(v=>/^zh/i.test(v.lang))||null;}catch(e){}}
+  let voice=null,enVoice=null;
+  function pick(){if(!ok)return;try{const vs=window.speechSynthesis.getVoices()||[];
+    voice=vs.find(v=>/zh[-_]CN/i.test(v.lang))||vs.find(v=>/^zh/i.test(v.lang))||null;
+    enVoice=vs.find(v=>/en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;}catch(e){}}
   if(ok){pick();try{window.speechSynthesis.addEventListener('voiceschanged',pick);}catch(e){}}
   return {
     ok,
     hasZh(){return ok&&!!voice;},
-    say(text){
-      if(!ok||!S.voice||!text)return false;
-      try{const u=new window.SpeechSynthesisUtterance(String(text));u.lang='zh-CN';u.rate=.85;u.pitch=1.1;if(voice)u.voice=voice;
+    hasEn(){return ok&&!!enVoice;},
+    // lang:'en' 读英文(en-US);force=true 表示孩子主动点了喇叭,即使关了"自动朗读"也读
+    say(text,lang,force){
+      if(!ok||(!force&&!S.voice)||!text)return false;
+      try{const en=lang==='en',u=new window.SpeechSynthesisUtterance(String(text));
+        u.lang=en?'en-US':'zh-CN';u.rate=en?.75:.85;u.pitch=en?1:1.1;const v=en?enVoice:voice;if(v)u.voice=v;
         window.speechSynthesis.cancel();window.speechSynthesis.speak(u);return true;}catch(e){return false;}
     },
     stop(){if(ok){try{window.speechSynthesis.cancel();}catch(e){}}}
@@ -1161,13 +1580,13 @@ const Tts=(function(){
 
 /* ================= 界面 ================= */
 const app=$('#app');
-let run=null,timers=[],screenName='home',lastTap=0,ttsWarned=false;
+let run=null,timers=[],screenName='home',lastTap=0,ttsWarned=false,enWarned=false;
 function later(fn,ms){const id=setTimeout(()=>{timers=timers.filter(x=>x!==id);fn();},ms);timers.push(id);return id;}
 function clearTimers(){timers.forEach(clearTimeout);timers=[];}
 function setScreen(name,html){clearTimers();screenName=name;app.innerHTML='<div class="screen '+name+'">'+html+'</div>';app.scrollTop=0;}
 function rnd(a){return a[Math.floor(Math.random()*a.length)];}
 function shuf(a){const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=r[i];r[i]=r[j];r[j]=t;}return r;}
-function sayBtn(t){return t?'<button class="sbtn tts" data-act="say" data-t="'+esc(t)+'" aria-label="读给我听">🔊 读给我听</button>':'';}
+function sayBtn(t,lang){return t?'<button class="sbtn tts" data-act="say" data-t="'+esc(t)+'" data-lang="'+(lang||'')+'" aria-label="读给我听">🔊 读给我听</button>':'';}
 function toast(msg,ms){const old=document.querySelector('.toast');if(old)old.remove();const d=document.createElement('div');d.className='toast';d.textContent=msg;document.body.appendChild(d);setTimeout(()=>{d.remove();},ms||2600);}
 function modal(html,cls){closeModal();const d=document.createElement('div');d.className='modalbg '+(cls||'');d.id='modal';d.innerHTML='<div class="modal">'+html+'</div>';document.body.appendChild(d);return d;}
 function closeModal(){const m=document.getElementById('modal');if(m)m.remove();}
@@ -1177,7 +1596,8 @@ function confetti(n){
   box.innerHTML=h;document.body.appendChild(box);setTimeout(()=>box.remove(),3500);
 }
 function floatText(t){const d=document.createElement('div');d.className='floatstar';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),1000);}
-function speakAuto(t){if(S.voice&&Tts.ok&&t)later(()=>Tts.say(t),300);}
+function speakAuto(t,lang){if(S.voice&&Tts.ok&&t)later(()=>Tts.say(t,lang),300);}
+function warnEn(ok){if(!enWarned&&ok){enWarned=true;later(()=>{try{if(window.speechSynthesis.getVoices().length&&!Tts.hasEn())toast('没找到英文语音,可能没有声音。请在手机设置里安装英文(美式)语音',5000);}catch(x){}},600);}}
 
 /* ---------- 主页 ---------- */
 const BUBBLES=['你好呀!今天一起玩吧~','我肚子饿啦,学完就能长大!','点我,我会跳舞~','今天也要加油哦!','我最喜欢和你一起学习了!'];
@@ -1247,9 +1667,9 @@ function addStar(n){
   S.stars+=n;run.lvStars+=n;run.dayStars+=n;if(!run.practice)dayRec(run.cur).stars+=n;
   const e=$('#lvs');if(e)e.textContent=run.lvStars;floatText('+'+n+' ⭐');Sfx.star();saveState();
 }
-const NOSTAT={trace:1,memory:1,maze:1,say:1,learn:1,poem:1};
+const NOSTAT={trace:1,memory:1,maze:1,say:1,learn:1,poem:1,abc:1,follow:1};
 function record(it,ok){
-  if(run.practice||it.counted||NOSTAT[it.kind]||!['py','zi','poem','math','logic'].includes(it.subject))return;
+  if(run.practice||it.counted||NOSTAT[it.kind]||!['py','zi','poem','math','logic','en'].includes(it.subject))return;
   it.counted=true;const st=dayRec(run.cur).st[it.subject];st[1]++;if(ok)st[0]++;saveState();
 }
 function queueRetry(it){
@@ -1260,7 +1680,7 @@ function queueRetry(it){
   run.q.push(c);
 }
 function qhead(it){
-  return '<div class="qtop"><span class="chip '+it.subject+'">'+(SUBJ[it.subject]||'')+'</span>'+sayBtn(it.say)+'</div><div class="prompt">'+esc(it.prompt)+(it.retry?'<span class="retag">再试一次</span>':'')+'</div>'+(it.vis?'<div class="vis">'+it.vis+'</div>':'');
+  return '<div class="qtop"><span class="chip '+it.subject+'">'+(SUBJ[it.subject]||'')+'</span>'+sayBtn(it.say,it.lang)+'</div><div class="prompt">'+esc(it.prompt)+(it.retry?'<span class="retag">再试一次</span>':'')+'</div>'+(it.vis?'<div class="vis">'+it.vis+'</div>':'');
 }
 function nextBar(label){return '<div class="bottombar"><button class="big grn hidden" id="nx" data-act="next">'+label+'</button></div>';}
 function nextLabel(){return run.i+1>=run.q.length?'完成本关 🎉':'下一题 ➜';}
@@ -1270,10 +1690,10 @@ function nextQ(){run.i++;if(run.i>=run.q.length)finishLevel();else renderQ();}
 function renderQ(){
   const it=run.q[run.i];run.it=it;const pb=$('#pb');if(pb)pb.style.width=Math.round(100*run.i/run.q.length)+'%';
   const qa=$('#qa');Tts.stop();
-  const R={choice:rChoice,match:rMatch,order:rOrder,trace:rTrace,memory:rMemory,maze:rMaze,learn:rLearn,poem:rPoem,say:rSay}[it.kind];
+  const R={choice:rChoice,match:rMatch,order:rOrder,trace:rTrace,memory:rMemory,maze:rMaze,learn:rLearn,poem:rPoem,say:rSay,guided:rGuided,abc:rAbc,follow:rFollow}[it.kind];
   try{R(qa,it);}catch(e){console.error('render error',e);GEN_ERRORS.push('render:'+(e&&e.stack||e));qa.innerHTML='<div class="card center">哎呀,这题出了点小问题。<button class="big" data-act="next" style="margin-top:12px">跳过 ➜</button></div>';}
   app.scrollTop=0;
-  if(it.kind!=='learn'&&it.kind!=='poem'&&it.kind!=='say')speakAuto(it.say);
+  if(it.kind!=='learn'&&it.kind!=='poem'&&it.kind!=='say'&&it.kind!=='abc'&&it.kind!=='follow'&&it.kind!=='guided')speakAuto(it.say,it.lang);
 }
 /* choice */
 function rChoice(qa,it){
@@ -1296,6 +1716,84 @@ function actAns(i){
     if(it.wrong>=2){const k=it.opts.findIndex(x=>x.ok);if(k>=0)btns[k].classList.add('hint');extra='<small>看看闪闪发亮的那个~</small>';}
     fb(rnd(SOFT)+extra,'no');
   }
+}
+/* guided:凑十法分步(拆 → 凑十 → 加) */
+function rGuided(qa,it){
+  it.wrong=it.wrong||0;it.si=0;it.busy=false;it.lines=[];it.done=false;
+  it.steps.forEach(st=>{st.w=0;st.opts.forEach(o=>{o.dis=false;});});
+  qa.innerHTML='<div class="qtop"><span class="chip math">数学</span>'+sayBtn(it.say)+'</div><div class="prompt">'+esc(it.prompt)+(it.retry?'<span class="retag">再试一次</span>':'')+'</div>'+
+   '<div class="small center">用凑十法,一步一步来~</div><div class="vis" id="gvis"></div><div class="gwork" id="gw"></div><div class="gstep" id="gs"></div><div class="fb" id="fb"></div>'+nextBar(nextLabel());
+  gDraw(it);
+}
+function gDraw(it){
+  const st=it.steps[it.si],n=it.steps.length;
+  $('#gvis').innerHTML=carryVis(it.base,it.other,it.si);
+  $('#gw').innerHTML=it.lines.map(l=>'<div>'+esc(l)+'</div>').join('');
+  let dots='';for(let k=0;k<n;k++)dots+='<b class="'+(k<it.si?'dn':(k===it.si?'on':''))+'">'+(k+1)+'</b>';
+  $('#gs').innerHTML='<div class="gdots">'+dots+'</div><div class="gq">'+esc(st.prompt)+'</div><div class="opts c'+(st.opts.length>3?2:3)+'">'+
+    st.opts.map((o,i)=>'<button class="opt" data-act="gans" data-i="'+i+'">'+o.h+'</button>').join('')+'</div>';
+  fb('','');speakAuto(st.say);
+}
+function actGans(i){
+  const it=run.it;if(!it||it.kind!=='guided'||it.done||it.busy)return;
+  const st=it.steps[it.si],o=st.opts[i];if(!o||o.dis)return;
+  const btns=app.querySelectorAll('#gs .opt');
+  if(o.ok){
+    btns[i].classList.add('right');btns.forEach((b,k)=>{if(k!==i)b.disabled=true;});it.lines.push(st.line);Sfx.ok();
+    if(it.si>=it.steps.length-1){
+      it.done=true;if(!it.retry&&it.wrong===0){record(it,true);addStar(1);}
+      $('#gvis').innerHTML=carryVis(it.base,it.other,2);$('#gw').innerHTML=it.lines.map(l=>'<div>'+esc(l)+'</div>').join('');
+      $('#gs').innerHTML='<div class="gres">'+it.A+' + '+it.B+' = '+it.ans+' ✔</div>';
+      fb(rnd(PRAISE),'ok');showNext();
+    }else{
+      it.busy=true;fb('对啦!','ok');
+      later(()=>{it.busy=false;it.si++;gDraw(it);},650);
+    }
+  }else{
+    it.wrong++;st.w=(st.w||0)+1;o.dis=true;btns[i].classList.add('wrong');btns[i].disabled=true;
+    if(it.wrong===1){record(it,false);queueRetry(it);}
+    Sfx.bad();let extra=st.hint?'<small>小提示:'+esc(st.hint)+'</small>':'';
+    if(st.w>=2){const k=st.opts.findIndex(x=>x.ok);if(k>=0)btns[k].classList.add('hint');extra='<small>看看闪闪发亮的那个~</small>';}
+    fb(rnd(SOFT)+extra,'no');
+  }
+}
+/* 字母卡 / 跟读 */
+function earText(x){return x.ph?'首音 '+x.ph:'';}
+function rAbc(qa,it){
+  const rows=it.items.map((x,i)=>{
+    const sp=x.say+'. '+x.w;
+    return '<div class="arow"><button class="acard" data-act="en" data-t="'+esc(sp)+'"><div class="aletter">'+esc(x.u)+'<small>'+esc(x.l)+'</small></div>'+
+     '<div class="aemo">'+x.emo+'</div><div class="aword">'+esc(x.w)+'<small>'+esc(x.zh)+'</small>'+(x.note?'<small>'+esc(x.note)+'</small>':'')+(S.ear&&x.ph?'<small>'+esc(earText(x))+'</small>':'')+'</div></button>'+
+     (S.ear?'<button class="aear tts" data-act="ear" data-t="'+esc(x.w)+'" aria-label="小耳朵">👂</button>':'')+'</div>';
+  }).join('');
+  const names=it.items.map(x=>x.u+' '+x.l+' = '+x.say+'('+x.ipa+')').join(';');
+  qa.innerHTML='<div class="qtop"><span class="chip en">英语</span></div><div class="prompt">'+esc(it.title)+'</div><div class="small center">点一点卡片,听一听,大声跟着读</div>'+
+   (it.tip?'<div class="note center">'+esc(it.tip)+'</div>':'')+'<div class="alist">'+rows+'</div>'+
+   '<div class="small center ifnotts">这台设备没有朗读功能,请爸爸妈妈读一读:'+esc(names)+'</div>'+
+   '<div class="bottombar"><button class="big grn" id="nx" data-act="next">我记住啦 ➜</button></div>';
+  speakAuto(it.items.map(x=>x.say+'. '+x.w).join('. '),'en');
+}
+function rFollow(qa,it){
+  it.round=0;it.last='';it.cur=null;it.done=false;it.wrong=0;
+  qa.innerHTML='<div class="qtop"><span class="chip en">英语</span></div><div class="prompt">跟读小达人</div><div class="small center">点 🔊 听一听,再大声跟着读!</div><div class="fcard" id="fcard"></div>'+
+   '<div class="frow"><button class="fbtn sb tts" data-act="f-say">🔊 听一听</button><button class="fbtn sb tts" data-act="f-again">🔁 再读一遍</button></div><div style="height:10px"></div>'+
+   '<button class="big blu" id="fnx" data-act="f-next">下一个字母 ➜</button><div class="fb" id="fb"></div>'+nextBar(run.i+1>=run.q.length?'读完啦!完成本关 🎉':'读完啦 ➜');
+  followNext(it);
+}
+function followNext(it){
+  const pool=it.pool.filter(u=>u!==it.last),u=rnd(pool.length?pool:it.pool);it.last=u;it.cur=u;it.round++;
+  const L=LTR_BY[u],n=Math.min(it.round,it.need);
+  $('#fcard').innerHTML='<div class="small">第 '+n+' / '+it.need+' 个</div><div class="fl">'+esc(L.u)+'<small>'+esc(L.l)+'</small></div><div class="fe">'+L.e+'</div><div class="fw">'+esc(L.w)+' · '+esc(L.zh)+'</div>'+
+    (S.ear&&L.ph?'<div class="small">'+esc(earText(L))+'</div><button class="aear tts" data-act="ear" data-t="'+esc(L.w)+'" aria-label="小耳朵">👂 听首音</button>':'')+
+    '<div class="small ifnotts">这台设备没有朗读功能,请爸爸妈妈读「'+esc(L.say)+'」('+esc(L.ipa)+')</div>';
+  if(S.voice&&Tts.ok)later(()=>Tts.say(L.say+'. '+L.w,'en'),250);
+}
+function actFollow(kind){
+  const it=run.it;if(!it||it.kind!=='follow')return;
+  if(kind==='say'){const L=LTR_BY[it.cur];if(!L)return;if(!Tts.ok){toast('这台设备没有朗读功能,请爸爸妈妈读给你听~');return;}warnEn(Tts.say(L.say+'. '+L.w,'en',true));return;}
+  if(it.done)return;
+  if(it.round>=it.need){it.done=true;addStar(1);fb(rnd(PRAISE),'ok');const f=$('#fnx');if(f)f.classList.add('hidden');showNext();return;}
+  Sfx.tap();followNext(it);
 }
 /* match */
 function rMatch(qa,it){
@@ -1514,11 +2012,11 @@ function gateCheck(){
   if(v===gateAns){const cb=gateCb;gateCb=null;closeModal();if(cb)cb();}
   else{const m=$('#gmsg');if(m)m.textContent='不对哦,请家长再算一算';const i=$('#gin');if(i)i.value='';}
 }
-function aggStats(){const a={py:[0,0],zi:[0,0],poem:[0,0],math:[0,0],logic:[0,0]};Object.keys(S.days).forEach(d=>{const r=S.days[d];Object.keys(a).forEach(k=>{a[k][0]+=r.st[k][0];a[k][1]+=r.st[k][1];});});return a;}
+function aggStats(){const a={py:[0,0],zi:[0,0],poem:[0,0],math:[0,0],logic:[0,0],en:[0,0]};Object.keys(S.days).forEach(d=>{const r=S.days[d];Object.keys(a).forEach(k=>{a[k][0]+=(r.st[k]||[0,0])[0];a[k][1]+=(r.st[k]||[0,0])[1];});});return a;}
 function pct(a){return a[1]?Math.round(100*a[0]/a[1]):null;}
 function showParent(msg){
   const ag=aggStats();let bars='';
-  ['py','zi','poem','math','logic'].forEach(k=>{const p=pct(ag[k]);bars+='<div>'+SUBJ[k]+':'+(p===null?'还没有数据':p+'%('+ag[k][0]+'/'+ag[k][1]+')')+'</div><div class="bar"><i style="width:'+(p||0)+'%"></i></div>';});
+  ['py','zi','poem','math','logic','en'].forEach(k=>{const p=pct(ag[k]);bars+='<div>'+SUBJ[k]+':'+(p===null?'还没有数据':p+'%('+ag[k][0]+'/'+ag[k][1]+')')+'</div><div class="bar"><i style="width:'+(p||0)+'%"></i></div>';});
   const cd=contentDay(S.cur),sp=daySpec(cd);
   let rows='';Object.keys(S.days).map(Number).sort((a,b)=>a-b).forEach(d=>{
     const r=S.days[d];if(!r.done&&!r.lv&&!r.stars)return;let c=0,t=0;Object.keys(r.st).forEach(k=>{c+=r.st[k][0];t+=r.st[k][1];});
@@ -1533,8 +2031,8 @@ function showParent(msg){
    '<div class="card pcard"><h3>📊 学习概况</h3>累计学习 <b>'+S.totalDays+'</b> 天 · 连续 <b>'+streakNow()+'</b> 天(最长 '+S.best+') · ⭐ '+S.stars+'<br>现在是第 <b>'+S.cur+'</b> 天:'+esc(cd<=30?OUTLINE[cd-1]:'毕业复习')+'<div style="height:8px"></div>'+bars+'<div class="small">正确率按「第一次就答对」统计,答错会再出现一次,不扣分。重玩的不统计。</div></div>'+
    '<div class="card pcard"><h3>📅 每天记录</h3><table class="tbl"><tr><th>天</th><th>状态</th><th>星星</th><th>正确率</th><th>小任务</th></tr>'+rows+'</table></div>'+
    '<div class="card pcard"><h3>⚙️ 设置</h3>起始难度<div class="seg">'+segD+'</div><div class="small">轻松:选项更少、数字更小;挑战:更多选项、更大数字。</div><div style="height:8px"></div>每天关卡数<div class="seg">'+segL+'</div><div style="height:8px"></div>'+
-   '<button class="pbtn" data-act="set-sound">'+(S.sound?'🔔 音效:开':'🔕 音效:关')+'</button><button class="pbtn tts" data-act="set-voice">'+(S.voice?'🗣️ 自动朗读题目:开':'🤐 自动朗读题目:关')+'</button>'+
-   '<div class="small ifnotts">这台设备的浏览器不支持朗读。</div><div class="small tts">朗读用的是手机自带的中文语音;没声音时,请在手机设置里安装/开启中文语音(如「文字转语音」)。</div><div style="height:8px"></div>'+
+   '<button class="pbtn" data-act="set-sound">'+(S.sound?'🔔 音效:开':'🔕 音效:关')+'</button><button class="pbtn tts" data-act="set-voice">'+(S.voice?'🗣️ 自动朗读题目:开':'🤐 自动朗读题目:关')+'</button><button class="pbtn tts" data-act="set-ear">'+(S.ear?'👂 自然拼读小耳朵:开(字母卡显示首音)':'👂 自然拼读小耳朵:关')+'</button>'+
+   '<div class="small ifnotts">这台设备的浏览器不支持朗读。</div><div class="small tts">朗读用的是手机自带的中文语音;没声音时,请在手机设置里安装/开启中文语音(如「文字转语音」)。字母朗读需要英文(美式)语音,没有的话请在系统「文字转语音」里添加;点 🔊 按钮不受「自动朗读」开关影响。</div><div style="height:8px"></div>'+
    '从第几天开始<select id="startday">'+opt+'</select><button class="pbtn" data-act="set-day">应用</button><div class="small">选好后,孩子就从那一天开始(已学完的记录保留)。</div></div>'+
    '<div class="card pcard"><h3>💾 备份与转移</h3><div class="small">换手机或清理浏览器前,复制下面的文字保存;到新设备里粘贴导入。</div><textarea id="exp" readonly>'+esc(JSON.stringify(S))+'</textarea><button class="pbtn" data-act="copy">📋 复制</button>'+
    '<div class="small" style="margin-top:8px">导入:把备份文字粘贴到这里</div><textarea id="imp" placeholder="在这里粘贴"></textarea><button class="pbtn" data-act="import">📥 导入</button><div class="msg" id="pmsg"></div>'+
@@ -1562,9 +2060,9 @@ document.body.addEventListener('click',e=>{if(e.target.closest('#modal'))onClick
 function onClick(e){
   const t=e.target.closest('[data-act]');if(!t||t.disabled)return;
   const act=t.dataset.act,now=Date.now();
-  if((act==='ans'||act==='tile'||act==='ml'||act==='mr'||act==='flip')&&now-lastTap<180)return;lastTap=now;
+  if((act==='ans'||act==='gans'||act==='tile'||act==='ml'||act==='mr'||act==='flip')&&now-lastTap<180)return;lastTap=now;
   switch(act){
-    case 'say':{const ok=Tts.say(t.dataset.t);if(!ttsWarned&&ok){ttsWarned=true;later(()=>{try{if(window.speechSynthesis.getVoices().length&&!Tts.hasZh())toast('没找到中文语音,可能没有声音。请在手机设置里安装中文语音',5000);}catch(x){}},600);}break;}
+    case 'say':{const lg=t.dataset.lang||'',ok=Tts.say(t.dataset.t,lg,true);if(lg==='en')warnEn(ok);else if(!ttsWarned&&ok){ttsWarned=true;later(()=>{try{if(window.speechSynthesis.getVoices().length&&!Tts.hasZh())toast('没找到中文语音,可能没有声音。请在手机设置里安装中文语音',5000);}catch(x){}},600);}break;}
     case 'start':Sfx.tap();startDay(S.cur);break;
     case 'play':startDay(parseInt(t.dataset.d,10));break;
     case 'locked':toast('先完成前面的日子,才能解锁哦~');break;
@@ -1575,6 +2073,11 @@ function onClick(e){
     case 'pet':{const p=$('#pet'),b=$('#bub');if(p){p.classList.remove('bounce');void p.offsetWidth;p.classList.add('bounce');}const m=rnd(BUBBLES);if(b)b.textContent=m;Sfx.ok();Tts.say(m);break;}
     case 'exit':exitAsk();break;
     case 'mclose':closeModal();break;
+    case 'gans':actGans(parseInt(t.dataset.i,10));break;
+    case 'en':{if(!Tts.ok){toast('这台设备没有朗读功能,请爸爸妈妈读给你听~');break;}t.classList.remove('tap');void t.offsetWidth;t.classList.add('tap');Sfx.tap();warnEn(Tts.say(t.dataset.t,'en',true));break;}
+    case 'ear':{if(!Tts.ok){toast('这台设备没有朗读功能');break;}Sfx.tap();warnEn(Tts.say(t.dataset.t,'en',true));break;}
+    case 'f-say':case 'f-again':actFollow('say');break;
+    case 'f-next':actFollow('next');break;
     case 'ans':actAns(parseInt(t.dataset.i,10));break;
     case 'ml':actMatch('l',parseInt(t.dataset.id,10));break;
     case 'mr':actMatch('r',parseInt(t.dataset.id,10));break;
@@ -1594,6 +2097,7 @@ function onClick(e){
     case 'set-diff':S.diff=parseInt(t.dataset.v,10);saveState();showParent();break;
     case 'set-lv':S.levels=parseInt(t.dataset.v,10);saveState();showParent();break;
     case 'set-sound':S.sound=!S.sound;saveState();if(S.sound)Sfx.ok();showParent();break;
+    case 'set-ear':S.ear=!S.ear;saveState();showParent();break;
     case 'set-voice':S.voice=!S.voice;saveState();if(!S.voice)Tts.stop();showParent();break;
     case 'set-day':{const v=parseInt(($('#startday')||{}).value,10);if(v>=1&&v<=30){S.cur=v;S.assign=todayStr();saveState();showParent('已设置:从第 '+v+' 天开始。');}break;}
     case 'copy':copyText(JSON.stringify(S));break;
